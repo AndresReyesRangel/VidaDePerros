@@ -19,6 +19,7 @@ class PantallaMenu extends Pantalla {
     private Stage escenaMenu;
 
     public PantallaMenu(Juego juego) {
+
         this.juego = juego;
     }
 

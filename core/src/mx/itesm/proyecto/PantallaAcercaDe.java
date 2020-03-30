@@ -33,13 +33,14 @@ class PantallaAcercaDe extends Pantalla {
     private void crearPantalla() {
         escenaPantalla = new Stage(vista);
         Texture texturaBtnRegresar = new Texture("PantallaAcercaDe/btnRegresar.png");
-        TextureRegionDrawable trdRegresar = new TextureRegionDrawable(new TextureRegion((texturaBtnRegresar)));
-        //Boton presionado
+        TextureRegionDrawable trdRegresar = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresar));
+        //Imagen btn presionado
         Texture texturaBtnRegresarP = new Texture("PantallaAcercaDe/btnRegresarP.png");
-        TextureRegionDrawable trdRegresarP = new TextureRegionDrawable(new TextureRegion((texturaBtnRegresarP)));
+        TextureRegionDrawable trdRegresarP = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresarP));
 
         ImageButton btnRegresar = new ImageButton(trdRegresar, trdRegresarP);
-        btnRegresar.setPosition(ANCHO/2, ALTO/2);
+
+        btnRegresar.setPosition(ANCHO- btnRegresar.getWidth() , ALTO-btnRegresar.getHeight() );
         //Listener
         btnRegresar.addListener(new ClickListener(){
             @Override
@@ -48,6 +49,7 @@ class PantallaAcercaDe extends Pantalla {
                 juego.setScreen(new PantallaMenu(juego));
             }
         });
+
         escenaPantalla.addActor(btnRegresar);
 
         Gdx.input.setInputProcessor(escenaPantalla);
@@ -62,6 +64,8 @@ class PantallaAcercaDe extends Pantalla {
         batch.begin();
         batch.draw(texturaFondo,0,0);
         batch.end();
+
+        escenaPantalla.draw();
 
     }
 

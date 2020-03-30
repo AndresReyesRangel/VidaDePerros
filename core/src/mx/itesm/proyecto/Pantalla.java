@@ -1,4 +1,4 @@
-package mx.itesm.demo;
+package mx.itesm.proyecto;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

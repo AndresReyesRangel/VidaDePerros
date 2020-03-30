@@ -44,13 +44,20 @@ class PantallaMenu extends Pantalla {
         Texture texturaBtnAcercaDeP = new Texture("Menu/btnAcercaDeP.png");
         TextureRegionDrawable trdAcercaDeP = new TextureRegionDrawable(new TextureRegion(texturaBtnAcercaDeP));
 
+        Texture texturaBtnInstrucciones = new Texture("Menu/btnInstrucciones.png");
+        TextureRegionDrawable trdInstrucciones = new TextureRegionDrawable(new TextureRegion(texturaBtnInstrucciones));
+        Texture texturaBtnInstruccionesP = new Texture("Menu/btnInstruccionesP.png");
+        TextureRegionDrawable trdInstruccionesP = new TextureRegionDrawable(new TextureRegion(texturaBtnInstruccionesP));
+
         //Cargando los botones
 
         ImageButton btnJugar = new ImageButton(trdJugar, trdJugarP);
         ImageButton btnAcercaDe = new ImageButton(trdAcercaDe, trdAcercaDeP);
+        ImageButton btnInstrucciones = new ImageButton(trdInstrucciones, trdInstruccionesP);
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-100 );
         btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3);
+        btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3+100);
 
         //Listener
         btnJugar.addListener(new ClickListener(){
@@ -69,8 +76,17 @@ class PantallaMenu extends Pantalla {
             }
         });
 
+        btnInstrucciones.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaInstrucciones(juego));
+            }
+        });
+
         escenaMenu.addActor(btnJugar);
         escenaMenu.addActor(btnAcercaDe);
+        escenaMenu.addActor(btnInstrucciones);
 
         Gdx.input.setInputProcessor(escenaMenu);
     }

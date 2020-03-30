@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public abstract class Pantalla implements Screen{
     // Atributos disponibles en todas las clases del proyecto
-    public static final float ANCHO = 1280;
-    public static final float ALTO = 720;
+    public static final float ANCHO = 720;
+    public static final float ALTO = 1280;
 
     // Atributos disponibles solo en las subclases
     // Todas las pantallas tienen una cámara y una vista

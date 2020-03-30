@@ -30,6 +30,7 @@ class PantallaMenu extends Pantalla {
 
     private void crearMenu() {
         escenaMenu = new Stage(vista);
+
         Texture texturaBtnJugar = new Texture("Menu/btnJugar.png");
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(texturaBtnJugar));
         //Imagen btn presionado
@@ -39,6 +40,7 @@ class PantallaMenu extends Pantalla {
         ImageButton btnJugar = new ImageButton(trdJugar, trdJugarP);
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3 );
+
         //Listener
         btnJugar.addListener(new ClickListener(){
             @Override

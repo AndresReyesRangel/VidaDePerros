@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 class PantallaMenu extends Pantalla {
 
+    //fondo
     private Juego juego;
     private Texture texturaFondo;
 

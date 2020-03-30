@@ -29,7 +29,7 @@ public class PantallaInstrucciones extends Pantalla {
 
     private void crearPantalla() {
         escenaPantalla = new Stage(vista);
-        Texture texturaBtnRegresar = new Texture("PantallaIntrucciones/btnRegresar.png");
+        Texture texturaBtnRegresar = new Texture("PantallaInstrucciones/btnRegresar.png");
         TextureRegionDrawable trdRegresar = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresar));
         //Imagen btn presionado
         Texture texturaBtnRegresarP = new Texture("PantallaInstrucciones/btnRegresarP.png");
@@ -37,7 +37,7 @@ public class PantallaInstrucciones extends Pantalla {
 
         ImageButton btnRegresar = new ImageButton(trdRegresar, trdRegresarP);
 
-        btnRegresar.setPosition(ANCHO/2-btnRegresar.getWidth()/2 , 2*ALTO/3-100);
+        btnRegresar.setPosition(ANCHO/2-btnRegresar.getWidth()/2 , 2*ALTO/3-800);
         //Listener
         btnRegresar.addListener(new ClickListener(){
             @Override

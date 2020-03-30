@@ -57,7 +57,7 @@ class PantallaMenu extends Pantalla {
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-100 );
         btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3);
-        btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3+100);
+        btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3+150);
 
         //Listener
         btnJugar.addListener(new ClickListener(){

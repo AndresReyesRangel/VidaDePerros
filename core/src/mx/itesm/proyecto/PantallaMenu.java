@@ -49,7 +49,7 @@ class PantallaMenu extends Pantalla {
         ImageButton btnJugar = new ImageButton(trdJugar, trdJugarP);
         ImageButton btnAcercaDe = new ImageButton(trdAcercaDe, trdAcercaDeP);
 
-        btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3 );
+        btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-100 );
         btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2 - 60 , ALTO/3);
 
         //Listener
@@ -65,7 +65,7 @@ class PantallaMenu extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaJuego(juego));
+                juego.setScreen(new PantallaAcercaDe(juego));
             }
         });
 

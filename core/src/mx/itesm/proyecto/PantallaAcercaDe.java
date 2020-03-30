@@ -3,6 +3,8 @@ package mx.itesm.proyecto;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 
+//Falta botón de regresar
+
 class PantallaAcercaDe extends Pantalla {
 
     private final Juego juego;

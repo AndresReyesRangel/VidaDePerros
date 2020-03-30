@@ -50,7 +50,7 @@ class PantallaMenu extends Pantalla {
         ImageButton btnAcercaDe = new ImageButton(trdAcercaDe, trdAcercaDeP);
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-100 );
-        btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2 - 50 , ALTO/3);
+        btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3);
 
         //Listener
         btnJugar.addListener(new ClickListener(){

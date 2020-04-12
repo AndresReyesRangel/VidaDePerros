@@ -43,6 +43,7 @@ class PantallaJuego extends Pantalla {
         fondo = new Fondo(texturaFondo, 0, 0);
     }
 
+    //Coment para hacer el push
     private void moverFondo(float delta) {
         fondo.mover(delta);
     }

@@ -5,10 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 public class Fondo extends Objeto {
 
     // Velocidad
-    private float vy = 360; // pixeles por segundo
+    private float vy = 560; // pixeles por segundo
 
     public Fondo(Texture textura, float x, float y) {
         super(textura, x, y);
+    }
+
+    public float getY(){
+        return sprite.getY();
+    }
+
+    public void setY(float y){
+        sprite.setY(y);
     }
 
     public void mover(float dt){

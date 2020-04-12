@@ -19,12 +19,16 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
+        if(fondo.getY() == 0){
+            crearFondo();
+        }
     }
 
     @Override
     public void render(float delta) {
         borrarPantalla();
         actualizar(delta);
+
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
 
@@ -43,7 +47,6 @@ class PantallaJuego extends Pantalla {
         fondo = new Fondo(texturaFondo, 0, 0);
     }
 
-    //Coment para hacer el push
     private void moverFondo(float delta) {
         fondo.mover(delta);
     }

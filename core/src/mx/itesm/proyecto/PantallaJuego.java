@@ -33,6 +33,7 @@ class PantallaJuego extends Pantalla {
         batch.begin();
 
 
+
         fondo.render(batch);
 
         batch.end();

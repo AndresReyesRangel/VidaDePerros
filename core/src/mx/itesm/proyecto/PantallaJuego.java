@@ -19,9 +19,6 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
-        if(fondo.getY() == 0){
-            crearFondo();
-        }
     }
 
     @Override
@@ -49,6 +46,10 @@ class PantallaJuego extends Pantalla {
 
     private void moverFondo(float delta) {
         fondo.mover(delta);
+        System.out.println(fondo.getY());
+        if(fondo.getY() <= -ALTO){
+            fondo.setY(0);
+        }
     }
 
     @Override

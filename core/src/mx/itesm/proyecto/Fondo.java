@@ -12,14 +12,16 @@ public class Fondo extends Objeto {
     }
 
     public float getY(){
-       return sprite.getY();
+        return sprite.getY();
+    }
+
+    public void setY(float y){
+        sprite.setY(y);
     }
 
     public void mover(float dt){
         float dy = vy * dt;
         sprite.setY(sprite.getY() - dy);
-        if(sprite.getY() == -1200 ){
 
-        }
     }
 }

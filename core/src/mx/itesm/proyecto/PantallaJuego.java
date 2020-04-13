@@ -1,5 +1,6 @@
 package mx.itesm.proyecto;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,10 +8,10 @@ import com.badlogic.gdx.math.Vector3;
 
 class PantallaJuego extends Pantalla {
 
-    private final Juego juego;
-    private int tiempo = 0;
     private int cont = 0;
+    private int tiempo = 0;
 
+    private final Juego juego;
 
     //Fondo
     private Texture texturaFondo;
@@ -26,17 +27,14 @@ class PantallaJuego extends Pantalla {
         this.juego = juego;
     }
 
-
     @Override
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
-        crearPerro();
         cargarTexturas();
-    }
+        crearPerro();
 
-    private void cargarTexturas() {
-        texturaPerro = new Texture("PantallaJuego/perro_nuevo.png");
+        Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void crearPerro() {
@@ -44,31 +42,31 @@ class PantallaJuego extends Pantalla {
 
     }
 
+    private void cargarTexturas() {
+        texturaPerro = new Texture("PantallaJuego/perro.png");
+    }
     @Override
     public void render(float delta) {
-
         borrarPantalla();
         actualizar(delta);
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
+
+
         fondo.render(batch);
+        perro.render(batch);
         batch.end();
 
     }
 
-
     private void actualizar(float delta) {
-
+        moverPerro();
+        moverFondo(delta);
         cont++;
-        tiempo = cont/60;
+        tiempo = cont;
         fondo.actualizarTiempo(tiempo);
 
-
-        moverFondo(delta);
-        if(fondo.getY() < -1250){
-            crearFondo();
-        }
     }
 
     public void crearFondo(){

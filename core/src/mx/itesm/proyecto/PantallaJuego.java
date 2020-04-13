@@ -1,7 +1,9 @@
 package mx.itesm.proyecto;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 
 class PantallaJuego extends Pantalla {
 
@@ -14,6 +16,12 @@ class PantallaJuego extends Pantalla {
     private Texture texturaFondo;
     private Fondo fondo;
 
+    //Perro
+    private Perro perro;
+    private Texture texturaPerro;
+    private Movimiento movimiento = Movimiento.QUIETO;
+
+
     public PantallaJuego(Juego juego) {
         this.juego = juego;
     }
@@ -23,6 +31,17 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
+        crearPerro();
+        cargarTexturas();
+    }
+
+    private void cargarTexturas() {
+        texturaPerro = new Texture("PantallaJuego/perro_nuevo.png");
+    }
+
+    private void crearPerro() {
+        perro = new Perro(texturaPerro, ANCHO / 2, ALTO * 0.05f);
+
     }
 
     @Override
@@ -63,6 +82,19 @@ class PantallaJuego extends Pantalla {
         }
     }
 
+    private void moverPerro() {
+        switch (movimiento) {
+            case DERECHA:
+                perro.mover(10);
+                break;
+            case IZQUIERDA:
+                perro.mover(-10);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void pause() {
 
@@ -75,6 +107,72 @@ class PantallaJuego extends Pantalla {
 
     @Override
     public void dispose() {
+        texturaPerro.dispose();
+    }
 
+    private class ProcesadorEntrada implements InputProcessor {
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 v = new Vector3(screenX, screenY, 0);
+            camara.unproject(v);
+
+            if (v.x >= ANCHO / 2) {
+                //DERECHA
+                movimiento = Movimiento.DERECHA;
+            } else {
+                //IZQUIERDA
+                movimiento = Movimiento.IZQUIERDA;
+
+                /*Pausar el juego
+                estadoJuego = EstadoJuego.PAUSADO;
+                if(escenaPausa == null){
+                    escenaPausa = new EscenaPausa(vista, batch);*/
+                }
+
+            return true;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            movimiento = Movimiento.QUIETO;
+            return true;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
+        }
+    }
+
+    //Movimiento
+    public enum Movimiento {
+        DERECHA,
+        IZQUIERDA,
+        QUIETO
     }
 }

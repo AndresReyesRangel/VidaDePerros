@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 public class Fondo extends Objeto {
 
     // Velocidad
-    private float vy = 560; // pixeles por segundo
+    private int tiempoJuego;
+    //private float vy =  // pixeles por segundo
+
 
     public Fondo(Texture textura, float x, float y) {
         super(textura, x, y);
@@ -20,8 +22,13 @@ public class Fondo extends Objeto {
     }
 
     public void mover(float dt){
-        float dy = vy * dt;
+        float dy = tiempoJuego * dt;
         sprite.setY(sprite.getY() - dy);
 
     }
+
+    public void actualizarTiempo(int tiempo) {
+       this.tiempoJuego = tiempo;
+    }
+
 }

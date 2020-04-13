@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 class PantallaJuego extends Pantalla {
 
-    private int cont = 0;
-    private int tiempo = 0;
-
     private final Juego juego;
+    private int tiempo = 0;
+    private int cont = 0;
+
 
     //Fondo
     private Texture texturaFondo;
@@ -18,6 +18,7 @@ class PantallaJuego extends Pantalla {
         this.juego = juego;
     }
 
+
     @Override
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
@@ -26,26 +27,29 @@ class PantallaJuego extends Pantalla {
 
     @Override
     public void render(float delta) {
+
         borrarPantalla();
         actualizar(delta);
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-
-
-
         fondo.render(batch);
-
         batch.end();
 
     }
 
+
     private void actualizar(float delta) {
-        moverFondo(delta);
+
         cont++;
-        tiempo = cont;
+        tiempo = cont/60;
         fondo.actualizarTiempo(tiempo);
 
+
+        moverFondo(delta);
+        if(fondo.getY() < -1250){
+            crearFondo();
+        }
     }
 
     public void crearFondo(){

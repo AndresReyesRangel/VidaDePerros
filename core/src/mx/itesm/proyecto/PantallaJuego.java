@@ -1,5 +1,6 @@
 package mx.itesm.proyecto;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,12 +31,10 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
-        crearPerro();
         cargarTexturas();
-    }
+        crearPerro();
 
-    private void cargarTexturas() {
-        texturaPerro = new Texture("PantallaJuego/perro_nuevo.png");
+        Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void crearPerro() {
@@ -43,6 +42,9 @@ class PantallaJuego extends Pantalla {
 
     }
 
+    private void cargarTexturas() {
+        texturaPerro = new Texture("PantallaJuego/perro.png");
+    }
     @Override
     public void render(float delta) {
         borrarPantalla();
@@ -53,12 +55,13 @@ class PantallaJuego extends Pantalla {
 
 
         fondo.render(batch);
-
+        perro.render(batch);
         batch.end();
 
     }
 
     private void actualizar(float delta) {
+        moverPerro();
         moverFondo(delta);
         cont++;
         tiempo = cont;

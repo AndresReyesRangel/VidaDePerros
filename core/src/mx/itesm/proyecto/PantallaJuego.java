@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 class PantallaJuego extends Pantalla {
 
+    private int cont = 0;
+    private int tiempo = 0;
+
     private final Juego juego;
 
     //Fondo
@@ -39,6 +42,10 @@ class PantallaJuego extends Pantalla {
 
     private void actualizar(float delta) {
         moverFondo(delta);
+        cont++;
+        tiempo = cont;
+        fondo.actualizarTiempo(tiempo);
+
     }
 
     public void crearFondo(){
@@ -47,7 +54,6 @@ class PantallaJuego extends Pantalla {
 
     private void moverFondo(float delta) {
         fondo.mover(delta);
-        System.out.println(fondo.getY());
         if(fondo.getY() <= -ALTO){
             fondo.setY(0);
         }

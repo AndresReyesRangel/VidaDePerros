@@ -43,7 +43,7 @@ class PantallaJuego extends Pantalla {
     }
 
     private void cargarTexturas() {
-        texturaPerro = new Texture("PantallaJuego/perro.png");
+        texturaPerro = new Texture("Perro/perro_nuevo.png");
     }
     @Override
     public void render(float delta) {

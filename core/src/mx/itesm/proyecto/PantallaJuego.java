@@ -16,13 +16,13 @@ class PantallaJuego extends Pantalla {
     //Fondo
     private Texture texturaFondo;
     private Fondo fondo;
-
+/*
     //Perro
     private Perro perro;
     private Texture texturaPerro;
     private Movimiento movimiento = Movimiento.QUIETO;
 
-
+*/
     public PantallaJuego(Juego juego) {
         this.juego = juego;
     }
@@ -31,20 +31,20 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
-        cargarTexturas();
-        crearPerro();
+        //cargarTexturas();
+        //crearPerro();
 
-        Gdx.input.setInputProcessor(new ProcesadorEntrada());
+        //Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
-
+/*
     private void crearPerro() {
         perro = new Perro(texturaPerro, ANCHO / 2, ALTO * 0.05f);
 
     }
 
     private void cargarTexturas() {
-        texturaPerro = new Texture("Perro/perro_nuevo.png");
-    }
+        texturaPerro = new Texture("PantallaJuego/perro.png");
+    }*/
     @Override
     public void render(float delta) {
         borrarPantalla();
@@ -55,13 +55,13 @@ class PantallaJuego extends Pantalla {
 
 
         fondo.render(batch);
-        perro.render(batch);
+        //perro.render(batch);
         batch.end();
 
     }
 
     private void actualizar(float delta) {
-        moverPerro();
+        //moverPerro();
         moverFondo(delta);
         cont++;
         tiempo = cont;
@@ -79,7 +79,7 @@ class PantallaJuego extends Pantalla {
             fondo.setY(0);
         }
     }
-
+/*
     private void moverPerro() {
         switch (movimiento) {
             case DERECHA:
@@ -91,7 +91,7 @@ class PantallaJuego extends Pantalla {
             default:
                 break;
         }
-    }
+    }*/
 
     @Override
     public void pause() {
@@ -105,9 +105,9 @@ class PantallaJuego extends Pantalla {
 
     @Override
     public void dispose() {
-        texturaPerro.dispose();
+        //texturaPerro.dispose();
     }
-
+/*
     private class ProcesadorEntrada implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {
@@ -139,7 +139,7 @@ class PantallaJuego extends Pantalla {
                 /*Pausar el juego
                 estadoJuego = EstadoJuego.PAUSADO;
                 if(escenaPausa == null){
-                    escenaPausa = new EscenaPausa(vista, batch);*/
+                    escenaPausa = new EscenaPausa(vista, batch);
                 }
 
             return true;
@@ -172,5 +172,5 @@ class PantallaJuego extends Pantalla {
         DERECHA,
         IZQUIERDA,
         QUIETO
-    }
+    }*/
 }

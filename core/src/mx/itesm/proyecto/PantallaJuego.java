@@ -196,4 +196,6 @@ class PantallaJuego extends Pantalla {
         IZQUIERDA,
         QUIETO
     }
+
+    //Arriba el boquita papa
 }

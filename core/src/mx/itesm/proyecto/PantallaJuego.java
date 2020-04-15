@@ -72,6 +72,8 @@ class PantallaJuego extends Pantalla {
         marcador.marcar(cont/60);
     }
 
+
+
     private void actualizar(float delta) {
         moverPerro();
         moverFondo(delta);

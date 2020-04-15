@@ -21,6 +21,7 @@ class PantallaJuego extends Pantalla {
     private Perro perro;
     private Texture texturaPerro;
     private Movimiento movimiento = Movimiento.QUIETO;
+    private float pasosPerro = 0;
 
 
     public PantallaJuego(Juego juego) {
@@ -34,11 +35,12 @@ class PantallaJuego extends Pantalla {
         cargarTexturas();
         crearPerro();
 
+
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void crearPerro() {
-        perro = new Perro(texturaPerro, ANCHO / 2, ALTO * 0.05f);
+        perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
 
     }
 
@@ -53,6 +55,8 @@ class PantallaJuego extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
 
+        //cls
+        // System.out.println(perro.getX());
 
         fondo.render(batch);
         perro.render(batch);
@@ -81,16 +85,31 @@ class PantallaJuego extends Pantalla {
     }
 
     private void moverPerro() {
-        switch (movimiento) {
-            case DERECHA:
-                perro.mover(10);
-                break;
-            case IZQUIERDA:
-                perro.mover(-10);
-                break;
-            default:
-                break;
+
+        pasosPerro = perro.getX();
+        //Movimiento para pasar del carril de la izquierda al carril de en medio
+        if(movimiento == Movimiento.DERECHA && (0<perro.getX() && perro.getX()<240)){
+
+            perro.setX(360-(texturaPerro.getWidth()/2));
+            movimiento = Movimiento.QUIETO;
+
+            //Para pasar del carril de en medio al de la derecha
+        }else if(movimiento == Movimiento.DERECHA && (240<perro.getX() && perro.getX()<480)){
+
+            perro.setX(520);
+
+            //Para pasar del carril de en medio al de la izquierda
+        }else if(movimiento == Movimiento.IZQUIERDA && (240<perro.getX() && perro.getX()<480)){
+
+            perro.setX(135);
+
+            //Para pasar del carril de la derecha al de en medio
+        }else if(movimiento == Movimiento.IZQUIERDA && (480<perro.getX() && perro.getX()<720)){
+
+            perro.setX(360-(texturaPerro.getWidth())/2);
+            movimiento = Movimiento.QUIETO;
         }
+
     }
 
     @Override
@@ -131,7 +150,11 @@ class PantallaJuego extends Pantalla {
 
             if (v.x >= ANCHO / 2) {
                 //DERECHA
-                movimiento = Movimiento.DERECHA;
+                if(perro.getX()<ANCHO-texturaPerro.getWidth()){
+                    movimiento = Movimiento.DERECHA;
+                }
+
+
             } else {
                 //IZQUIERDA
                 movimiento = Movimiento.IZQUIERDA;

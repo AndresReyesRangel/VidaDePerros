@@ -16,13 +16,14 @@ class PantallaJuego extends Pantalla {
     //Fondo
     private Texture texturaFondo;
     private Fondo fondo;
-/*
+
     //Perro
     private Perro perro;
     private Texture texturaPerro;
     private Movimiento movimiento = Movimiento.QUIETO;
+    private float pasosPerro = 0;
 
-*/
+
     public PantallaJuego(Juego juego) {
         this.juego = juego;
     }
@@ -31,20 +32,21 @@ class PantallaJuego extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         crearFondo();
-        //cargarTexturas();
-        //crearPerro();
+        cargarTexturas();
+        crearPerro();
 
-        //Gdx.input.setInputProcessor(new ProcesadorEntrada());
+
+        Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
-/*
+
     private void crearPerro() {
-        perro = new Perro(texturaPerro, ANCHO / 2, ALTO * 0.05f);
+        perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
 
     }
 
     private void cargarTexturas() {
-        texturaPerro = new Texture("PantallaJuego/perro.png");
-    }*/
+        texturaPerro = new Texture("Perro/perro_nuevo.png");
+    }
     @Override
     public void render(float delta) {
         borrarPantalla();
@@ -53,15 +55,17 @@ class PantallaJuego extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
 
+        //cls
+        // System.out.println(perro.getX());
 
         fondo.render(batch);
-        //perro.render(batch);
+        perro.render(batch);
         batch.end();
 
     }
 
     private void actualizar(float delta) {
-        //moverPerro();
+        moverPerro();
         moverFondo(delta);
         cont++;
         tiempo = cont;
@@ -79,19 +83,34 @@ class PantallaJuego extends Pantalla {
             fondo.setY(0);
         }
     }
-/*
+
     private void moverPerro() {
-        switch (movimiento) {
-            case DERECHA:
-                perro.mover(10);
-                break;
-            case IZQUIERDA:
-                perro.mover(-10);
-                break;
-            default:
-                break;
+
+        pasosPerro = perro.getX();
+        //Movimiento para pasar del carril de la izquierda al carril de en medio
+        if(movimiento == Movimiento.DERECHA && (0<perro.getX() && perro.getX()<240)){
+
+            perro.setX(360-(texturaPerro.getWidth()/2));
+            movimiento = Movimiento.QUIETO;
+
+            //Para pasar del carril de en medio al de la derecha
+        }else if(movimiento == Movimiento.DERECHA && (240<perro.getX() && perro.getX()<480)){
+
+            perro.setX(520);
+
+            //Para pasar del carril de en medio al de la izquierda
+        }else if(movimiento == Movimiento.IZQUIERDA && (240<perro.getX() && perro.getX()<480)){
+
+            perro.setX(135);
+
+            //Para pasar del carril de la derecha al de en medio
+        }else if(movimiento == Movimiento.IZQUIERDA && (480<perro.getX() && perro.getX()<720)){
+
+            perro.setX(360-(texturaPerro.getWidth())/2);
+            movimiento = Movimiento.QUIETO;
         }
-    }*/
+
+    }
 
     @Override
     public void pause() {
@@ -105,9 +124,9 @@ class PantallaJuego extends Pantalla {
 
     @Override
     public void dispose() {
-        //texturaPerro.dispose();
+        texturaPerro.dispose();
     }
-/*
+
     private class ProcesadorEntrada implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {
@@ -131,7 +150,11 @@ class PantallaJuego extends Pantalla {
 
             if (v.x >= ANCHO / 2) {
                 //DERECHA
-                movimiento = Movimiento.DERECHA;
+                if(perro.getX()<ANCHO-texturaPerro.getWidth()){
+                    movimiento = Movimiento.DERECHA;
+                }
+
+
             } else {
                 //IZQUIERDA
                 movimiento = Movimiento.IZQUIERDA;
@@ -139,7 +162,7 @@ class PantallaJuego extends Pantalla {
                 /*Pausar el juego
                 estadoJuego = EstadoJuego.PAUSADO;
                 if(escenaPausa == null){
-                    escenaPausa = new EscenaPausa(vista, batch);
+                    escenaPausa = new EscenaPausa(vista, batch);*/
                 }
 
             return true;
@@ -172,5 +195,7 @@ class PantallaJuego extends Pantalla {
         DERECHA,
         IZQUIERDA,
         QUIETO
-    }*/
+    }
+
+    //Arriba el boquita papa
 }

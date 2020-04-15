@@ -23,6 +23,9 @@ class PantallaJuego extends Pantalla {
     private Movimiento movimiento = Movimiento.QUIETO;
     private float pasosPerro = 0;
 
+    //Marcador
+    private Marcador marcador;
+
 
     public PantallaJuego(Juego juego) {
         this.juego = juego;
@@ -34,9 +37,13 @@ class PantallaJuego extends Pantalla {
         crearFondo();
         cargarTexturas();
         crearPerro();
-
+        crearMarcador();
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
+    }
+
+    private void crearMarcador() {
+        marcador = new Marcador(150,1250);
     }
 
     private void crearPerro() {
@@ -55,13 +62,14 @@ class PantallaJuego extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
 
-        //cls
-        // System.out.println(perro.getX());
-
         fondo.render(batch);
         perro.render(batch);
+
+        // marcador
+        marcador.render(batch);
         batch.end();
 
+        marcador.marcar(cont/60);
     }
 
     private void actualizar(float delta) {
@@ -82,6 +90,7 @@ class PantallaJuego extends Pantalla {
         if(fondo.getY() <= -ALTO){
             fondo.setY(0);
         }
+
     }
 
     private void moverPerro() {
@@ -197,5 +206,5 @@ class PantallaJuego extends Pantalla {
         QUIETO
     }
 
-    //Arriba el boquita papa
+    //Arriba el boquita papá
 }

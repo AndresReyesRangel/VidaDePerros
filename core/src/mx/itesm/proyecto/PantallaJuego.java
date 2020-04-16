@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+
+import java.security.AlgorithmConstraints;
 
 class PantallaJuego extends Pantalla {
 
-    private int cont = 0;
-    private int tiempo = 0;
+    private int cont;
+    private int tiempo;
+    public int puntos = cont;
 
     private final Juego juego;
 
@@ -23,12 +27,26 @@ class PantallaJuego extends Pantalla {
     private Movimiento movimiento = Movimiento.QUIETO;
     private float pasosPerro = 0;
 
+    //Enemigos
+    private Texture texturaOil;
+    private Texture texturaCaja;
+    private Texture texturaColadera;
+    private Obstaculos oil;
+    private Obstaculos caja;
+    private Obstaculos coladera;
+
     //Marcador
     private Marcador marcador;
 
 
+
+
     public PantallaJuego(Juego juego) {
         this.juego = juego;
+    }
+
+    public int getPuntos(){
+        return puntos;
     }
 
     @Override
@@ -38,22 +56,34 @@ class PantallaJuego extends Pantalla {
         cargarTexturas();
         crearPerro();
         crearMarcador();
+        crearObstaculos();
+
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
-    private void crearMarcador() {
+    private void crearObstaculos() {
+        oil = new Obstaculos(texturaOil, (ANCHO-texturaOil.getWidth())/2, ALTO - 100);
+        caja = new Obstaculos(texturaCaja, 135-texturaCaja.getWidth()/2, ALTO*0.05f );
+        coladera = new Obstaculos(texturaColadera, 520-texturaColadera.getWidth()/2, ALTO*0.05f);
+    }
+
+    private void crearMarcador() {texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         marcador = new Marcador(150,1250);
     }
 
     private void crearPerro() {
         perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
-
     }
 
     private void cargarTexturas() {
+        texturaOil = new Texture("Obstáculos/oil.png");
+        texturaCaja = new Texture("Obstáculos/Apple_box.png");
+        texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo.png");
     }
+
+
     @Override
     public void render(float delta) {
         borrarPantalla();
@@ -67,21 +97,50 @@ class PantallaJuego extends Pantalla {
 
         // marcador
         marcador.render(batch);
+
+        //obstaculos
+        oil.render(batch);
+        coladera.render(batch);
+        caja.render(batch);
         batch.end();
 
         marcador.marcar(cont/60);
     }
 
+
+
     private void actualizar(float delta) {
         moverPerro();
         moverFondo(delta);
+        moverObstaculo(delta);
         cont++;
         tiempo = cont;
         fondo.actualizarTiempo(tiempo);
+        probarColisiones();
 
     }
 
+    private void moverObstaculo(float delta) {
+
+        oil.mover(delta*1.5f);
+        caja.mover(delta);
+        coladera.mover(delta);
+
+        if(oil.getY() < 0){
+            oil.setY(ALTO);
+        }
+
+        if(caja.getY() < 0){
+            caja.setY(ALTO);
+        }
+
+        if(coladera.getY() < 0){
+            coladera.setY(ALTO);
+        }
+    }
+
     public void crearFondo(){
+
         fondo = new Fondo(texturaFondo, 0, 0);
     }
 
@@ -117,6 +176,20 @@ class PantallaJuego extends Pantalla {
 
             perro.setX(360-(texturaPerro.getWidth())/2);
             movimiento = Movimiento.QUIETO;
+        }
+
+    }
+
+    private void probarColisiones() {
+
+        Rectangle rectOil = oil.sprite.getBoundingRectangle();
+        Rectangle rectCaja = caja.sprite.getBoundingRectangle();
+        Rectangle rectColadera = coladera.sprite.getBoundingRectangle();
+        Rectangle rectPerro = perro.sprite.getBoundingRectangle();
+
+        if(rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro)){
+            int puntos = marcador.getCont();
+            juego.setScreen(new PantallaPerder(juego, puntos));
         }
 
     }
@@ -206,5 +279,5 @@ class PantallaJuego extends Pantalla {
         QUIETO
     }
 
-    //Arriba el boquita papá
+    //Arriba el boquita papá me la pela roman
 }

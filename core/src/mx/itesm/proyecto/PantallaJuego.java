@@ -23,8 +23,14 @@ class PantallaJuego extends Pantalla {
     private Movimiento movimiento = Movimiento.QUIETO;
     private float pasosPerro = 0;
 
+    //Enemigos
+    private Texture texturaOil;
+    private Obstaculos oil;
+
     //Marcador
     private Marcador marcador;
+
+
 
 
     public PantallaJuego(Juego juego) {
@@ -38,22 +44,29 @@ class PantallaJuego extends Pantalla {
         cargarTexturas();
         crearPerro();
         crearMarcador();
+        crearObstaculos();
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
-    private void crearMarcador() {
+    private void crearObstaculos() {
+        oil = new Obstaculos(texturaOil, (ANCHO-texturaPerro.getWidth())/2, ALTO - 100);
+    }
+
+    private void crearMarcador() {texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         marcador = new Marcador(150,1250);
     }
 
     private void crearPerro() {
         perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
-
     }
 
     private void cargarTexturas() {
+        texturaOil = new Texture("Obstáculos/oil.png");
         texturaPerro = new Texture("Perro/perro_nuevo.png");
     }
+
+
     @Override
     public void render(float delta) {
         borrarPantalla();
@@ -67,6 +80,7 @@ class PantallaJuego extends Pantalla {
 
         // marcador
         marcador.render(batch);
+        oil.render(batch);
         batch.end();
 
         marcador.marcar(cont/60);
@@ -84,6 +98,7 @@ class PantallaJuego extends Pantalla {
     }
 
     public void crearFondo(){
+
         fondo = new Fondo(texturaFondo, 0, 0);
     }
 

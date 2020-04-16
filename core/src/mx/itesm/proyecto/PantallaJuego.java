@@ -99,13 +99,8 @@ class PantallaJuego extends Pantalla {
     }
 
     private void moverObstaculo(float delta) {
-        if (oil != null) {
+        if(oil.getX() < ALTO-100){
             oil.mover(delta);
-            //Salio?.... colisionó
-            if (oil.sprite.getY() > ALTO) {
-                //Fuera de la pantalla
-                oil = null;
-            }
         }
     }
 

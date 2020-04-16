@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 import java.security.AlgorithmConstraints;
@@ -108,6 +109,7 @@ class PantallaJuego extends Pantalla {
         cont++;
         tiempo = cont;
         fondo.actualizarTiempo(tiempo);
+        probarColisiones();
 
     }
 
@@ -167,6 +169,20 @@ class PantallaJuego extends Pantalla {
 
             perro.setX(360-(texturaPerro.getWidth())/2);
             movimiento = Movimiento.QUIETO;
+        }
+
+    }
+
+    private void probarColisiones() {
+
+        Rectangle rectOil = oil.sprite.getBoundingRectangle();
+        Rectangle rectCaja = caja.sprite.getBoundingRectangle();
+        Rectangle rectColadera = coladera.sprite.getBoundingRectangle();
+        Rectangle rectPerro = perro.sprite.getBoundingRectangle();
+
+        if(rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro)){
+            juego.setScreen(new PantallaPerder(juego));
+
         }
 
     }

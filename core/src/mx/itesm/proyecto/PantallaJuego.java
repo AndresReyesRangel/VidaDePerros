@@ -11,8 +11,9 @@ import java.security.AlgorithmConstraints;
 
 class PantallaJuego extends Pantalla {
 
-    private int cont = 0;
-    private int tiempo = 0;
+    private int cont;
+    private int tiempo;
+    public int puntos = cont;
 
     private final Juego juego;
 
@@ -42,6 +43,10 @@ class PantallaJuego extends Pantalla {
 
     public PantallaJuego(Juego juego) {
         this.juego = juego;
+    }
+
+    public int getPuntos(){
+        return puntos;
     }
 
     @Override
@@ -92,6 +97,8 @@ class PantallaJuego extends Pantalla {
 
         // marcador
         marcador.render(batch);
+
+        //obstaculos
         oil.render(batch);
         coladera.render(batch);
         caja.render(batch);
@@ -182,7 +189,6 @@ class PantallaJuego extends Pantalla {
 
         if(rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro)){
             juego.setScreen(new PantallaPerder(juego));
-
         }
 
     }

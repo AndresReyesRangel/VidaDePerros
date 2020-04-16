@@ -20,15 +20,28 @@ class PantallaPerder extends Pantalla {
 
     private Stage escenaPerder;
 
+    //Puntaje
+    private Marcador marcador;
+    int puntos;
+
+
     public PantallaPerder(Juego juego) {
         this.juego = juego;
     }
 
     @Override
     public void show() {
-        texturaFondo = new Texture("Pantalla GameOver/pantalla_GameOver.png");
+        texturaFondo = new Texture("Pantalla GameOVer/pantalla_GameOver.png");
         crearPantalla();
+        crearMarcador();
     }
+
+    private void crearMarcador() {
+
+        marcador = new Marcador(150,1250);
+        marcador.marcar(marcador.getCont());
+    }
+
 
     private void crearPantalla() {
         escenaPerder = new Stage(vista);
@@ -63,6 +76,7 @@ class PantallaPerder extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo,0,0);
+        marcador.render(batch);
         batch.end();
 
         escenaPerder.draw();

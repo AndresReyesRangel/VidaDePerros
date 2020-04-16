@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Obstaculos extends Objeto {
 
+    private float vy = 360;
+
     public Obstaculos(Texture textura, float x, float y) {
         super(textura, x, y);
     }
@@ -14,5 +16,10 @@ public class Obstaculos extends Objeto {
 
     public float getX(){
         return sprite.getX();
+    }
+
+    public void mover(float dt){
+        float dy = vy * dt;
+        sprite.setY(sprite.getY() + dy);
     }
 }

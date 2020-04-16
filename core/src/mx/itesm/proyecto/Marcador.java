@@ -16,7 +16,7 @@ class Marcador {
         this.x = x;
         this.y = y;
         cont = 0;
-        texto = new Texto("Fuentes/fuenteMenu.fnt"); //Fuente
+        texto = new Texto("Fuentes/minkler.fnt"); //Fuente
 
     }
 

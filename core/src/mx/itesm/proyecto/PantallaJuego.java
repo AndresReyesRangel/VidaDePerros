@@ -91,10 +91,22 @@ class PantallaJuego extends Pantalla {
     private void actualizar(float delta) {
         moverPerro();
         moverFondo(delta);
+        moverObstaculo(delta);
         cont++;
         tiempo = cont;
         fondo.actualizarTiempo(tiempo);
 
+    }
+
+    private void moverObstaculo(float delta) {
+        if (oil != null) {
+            oil.mover(delta);
+            //Salio?.... colisionó
+            if (oil.sprite.getY() > ALTO) {
+                //Fuera de la pantalla
+                oil = null;
+            }
+        }
     }
 
     public void crearFondo(){
@@ -223,5 +235,5 @@ class PantallaJuego extends Pantalla {
         QUIETO
     }
 
-    //Arriba el boquita papá
+    //Arriba el boquita papá me la pela roman
 }

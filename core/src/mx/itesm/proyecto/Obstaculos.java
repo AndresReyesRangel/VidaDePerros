@@ -10,12 +10,12 @@ public class Obstaculos extends Objeto {
         super(textura, x, y);
     }
 
-    public void setX(float dx){
-        sprite.setX(dx);
+    public void setY(float dx){
+        sprite.setY(dx);
     }
 
-    public float getX(){
-        return sprite.getX();
+    public float getY(){
+        return sprite.getY();
     }
 
     public void mover(float dt){

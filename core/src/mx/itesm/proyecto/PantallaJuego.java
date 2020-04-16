@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 
+import java.security.AlgorithmConstraints;
+
 class PantallaJuego extends Pantalla {
 
     private int cont = 0;
@@ -99,8 +101,9 @@ class PantallaJuego extends Pantalla {
     }
 
     private void moverObstaculo(float delta) {
-        if(oil.getX() < ALTO-100){
-            oil.mover(delta);
+        oil.mover(delta);
+        if(oil.getY() < 0){
+            oil.setY(ALTO);
         }
     }
 

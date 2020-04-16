@@ -36,7 +36,7 @@ class PantallaJuego extends Pantalla {
     private Obstaculos coladera;
 
     //Marcador
-    private Marcador marcador;
+    public Marcador marcador;
 
 
 
@@ -55,9 +55,8 @@ class PantallaJuego extends Pantalla {
         crearFondo();
         cargarTexturas();
         crearPerro();
-        crearMarcador();
         crearObstaculos();
-
+        crearMarcador();
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
@@ -68,7 +67,8 @@ class PantallaJuego extends Pantalla {
         coladera = new Obstaculos(texturaColadera, 520-texturaColadera.getWidth()/2, ALTO*0.05f);
     }
 
-    private void crearMarcador() {texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
+    private void crearMarcador() {
+        texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
         marcador = new Marcador(150,1250);
     }
 
@@ -95,13 +95,16 @@ class PantallaJuego extends Pantalla {
         fondo.render(batch);
         perro.render(batch);
 
-        // marcador
-        marcador.render(batch);
+
 
         //obstaculos
         oil.render(batch);
         coladera.render(batch);
         caja.render(batch);
+
+        // marcador
+        marcador.render(batch);
+
         batch.end();
 
         marcador.marcar(cont/60);

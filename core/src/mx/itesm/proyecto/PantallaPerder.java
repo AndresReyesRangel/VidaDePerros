@@ -39,7 +39,7 @@ class PantallaPerder extends Pantalla {
 
     private void crearMarcador() {
 
-        marcador = new Marcador(150,1250);
+        marcador = new Marcador(600,550);
         marcador.marcar(puntos);
     }
 

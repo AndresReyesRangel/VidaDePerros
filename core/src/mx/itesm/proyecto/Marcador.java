@@ -16,6 +16,7 @@ class Marcador {
         this.y = y;
         texto = new Texto("Fuentes/minkler.fnt"); //Fuente
 
+
     }
 
 
@@ -26,7 +27,7 @@ class Marcador {
 
 
     public void render(SpriteBatch batch){
-        String mensaje = "puntos: " + cont;
+        String mensaje = ""+ cont;
         texto.render(batch, mensaje, x, y);
     }
 

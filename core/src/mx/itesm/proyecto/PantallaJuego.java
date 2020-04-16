@@ -27,7 +27,11 @@ class PantallaJuego extends Pantalla {
 
     //Enemigos
     private Texture texturaOil;
+    private Texture texturaCaja;
+    private Texture texturaColadera;
     private Obstaculos oil;
+    private Obstaculos caja;
+    private Obstaculos coladera;
 
     //Marcador
     private Marcador marcador;
@@ -48,11 +52,14 @@ class PantallaJuego extends Pantalla {
         crearMarcador();
         crearObstaculos();
 
+
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void crearObstaculos() {
-        oil = new Obstaculos(texturaOil, (ANCHO-texturaPerro.getWidth())/2, ALTO - 100);
+        oil = new Obstaculos(texturaOil, (ANCHO-texturaOil.getWidth())/2, ALTO - 100);
+        caja = new Obstaculos(texturaCaja, 135-texturaCaja.getWidth()/2, ALTO*0.05f );
+        coladera = new Obstaculos(texturaColadera, 520-texturaColadera.getWidth()/2, ALTO*0.05f);
     }
 
     private void crearMarcador() {texturaFondo = new Texture("PantallaJuego/FondoJuego.png");
@@ -65,6 +72,8 @@ class PantallaJuego extends Pantalla {
 
     private void cargarTexturas() {
         texturaOil = new Texture("Obstáculos/oil.png");
+        texturaCaja = new Texture("Obstáculos/Apple_box.png");
+        texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo.png");
     }
 
@@ -83,6 +92,8 @@ class PantallaJuego extends Pantalla {
         // marcador
         marcador.render(batch);
         oil.render(batch);
+        coladera.render(batch);
+        caja.render(batch);
         batch.end();
 
         marcador.marcar(cont/60);
@@ -101,9 +112,21 @@ class PantallaJuego extends Pantalla {
     }
 
     private void moverObstaculo(float delta) {
-        oil.mover(delta);
+
+        oil.mover(delta*1.5f);
+        caja.mover(delta);
+        coladera.mover(delta);
+
         if(oil.getY() < 0){
             oil.setY(ALTO);
+        }
+
+        if(caja.getY() < 0){
+            caja.setY(ALTO);
+        }
+
+        if(coladera.getY() < 0){
+            coladera.setY(ALTO);
         }
     }
 

@@ -188,7 +188,8 @@ class PantallaJuego extends Pantalla {
         Rectangle rectPerro = perro.sprite.getBoundingRectangle();
 
         if(rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro)){
-            juego.setScreen(new PantallaPerder(juego));
+            int puntos = marcador.getCont();
+            juego.setScreen(new PantallaPerder(juego, puntos));
         }
 
     }

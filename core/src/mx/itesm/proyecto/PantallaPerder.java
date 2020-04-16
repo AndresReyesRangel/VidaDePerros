@@ -22,11 +22,12 @@ class PantallaPerder extends Pantalla {
 
     //Puntaje
     private Marcador marcador;
-    int puntos;
+    private int puntos;
 
 
-    public PantallaPerder(Juego juego) {
+    public PantallaPerder(Juego juego, int puntos) {
         this.juego = juego;
+        this.puntos = puntos;
     }
 
     @Override
@@ -39,7 +40,7 @@ class PantallaPerder extends Pantalla {
     private void crearMarcador() {
 
         marcador = new Marcador(150,1250);
-        marcador.marcar(marcador.getCont());
+        marcador.marcar(puntos);
     }
 
 

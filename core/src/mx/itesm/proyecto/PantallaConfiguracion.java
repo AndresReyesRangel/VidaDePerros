@@ -21,7 +21,7 @@ public class PantallaConfiguracion extends Pantalla {
     }
     @Override
     public void show() {
-        texturaFondo = new Texture("PantallaInstrucciones/fondoInstrucciones.png");
+        texturaFondo = new Texture("PantallaConfiguracion/Pantalla_Config.png");
         crearPantalla();
     }
 
@@ -34,21 +34,52 @@ public class PantallaConfiguracion extends Pantalla {
         Texture texturaBtnRegresarP = new Texture("PantallaConfiguracion/btnRegresarP.png");
         TextureRegionDrawable trdRegresarP = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresarP));
         //Imagen btnVolumen
-        Texture texturaBtnVolumen = new Texture("PantallaConfiguracion/.png");
+        Texture texturaBtnVolumen = new Texture("PantallaConfiguracion/Sonido_Boton.png");
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumen));
         //Imagen btnVolumenOff
-        Texture texturaBtnVolumenOff = new Texture("PantallaConfiguracion/.png");
+        Texture texturaBtnVolumenOff = new Texture("PantallaConfiguracion/Muted_Boton.png");
         TextureRegionDrawable trdVolumenOff = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumenOff));
 
-        ImageButton btnVolumen = new ImageButton(trdVolumen);
-        ImageButton btnVolumenOff = new ImageButton(trdVolumenOff);
+        final ImageButton btnVolumen = new ImageButton(trdVolumen);
+        final ImageButton btnVolumenOff = new ImageButton(trdVolumenOff);
         ImageButton btnRegresar = new ImageButton(trdRegresar, trdRegresarP);
 
-
+        //Posiciones de los botones
         btnRegresar.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 800);
         btnVolumen.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
         btnVolumenOff.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
 
+        //Listeners de los botones
+        btnRegresar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaMenu(juego));
+            }
+        });
+
+        btnVolumen.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                btnVolumen;
+            }
+        });
+
+        btnVolumenOff.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                escenaPantalla.addActor(btnVolumen);
+
+            }
+        });
+
+        escenaPantalla.addActor(btnRegresar);
+        escenaPantalla.addActor(btnVolumen);
+        escenaPantalla.addActor(btnVolumenOff);
+
+        Gdx.input.setInputProcessor(escenaPantalla);
     }
 
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -49,15 +50,22 @@ class PantallaMenu extends Pantalla {
         Texture texturaBtnInstruccionesP = new Texture("Menu/btnInstruccionesP.png");
         TextureRegionDrawable trdInstruccionesP = new TextureRegionDrawable(new TextureRegion(texturaBtnInstruccionesP));
 
+        Texture texturaBtnConfiguracion = new Texture("Menu/btnInstrucciones.png");
+        TextureRegionDrawable trdConfiguracion = new TextureRegionDrawable(new TextureRegion(texturaBtnInstrucciones));
+        Texture texturaBtnConfiguracionP = new Texture("Menu/btnInstruccionesP.png");
+        TextureRegionDrawable trdConfiguracionP = new TextureRegionDrawable(new TextureRegion(texturaBtnInstruccionesP));
+
         //Cargando los botones
 
         ImageButton btnJugar = new ImageButton(trdJugar, trdJugarP);
         ImageButton btnAcercaDe = new ImageButton(trdAcercaDe, trdAcercaDeP);
         ImageButton btnInstrucciones = new ImageButton(trdInstrucciones, trdInstruccionesP);
+        ImageButton btnConfiguracion = new ImageButton(trdConfiguracion, trdConfiguracionP);
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-300);
         btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3-200);
         btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3);
+        btnConfiguracion.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3-90);
 
         //Listener
         btnJugar.addListener(new ClickListener(){
@@ -84,9 +92,18 @@ class PantallaMenu extends Pantalla {
             }
         });
 
+        btnConfiguracion.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaConfiguracion(juego));
+            }
+        });
+
         escenaMenu.addActor(btnJugar);
         escenaMenu.addActor(btnAcercaDe);
         escenaMenu.addActor(btnInstrucciones);
+        escenaMenu.addActor(btnConfiguracion);
 
         Gdx.input.setInputProcessor(escenaMenu);
     }

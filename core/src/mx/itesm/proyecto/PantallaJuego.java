@@ -282,5 +282,5 @@ class PantallaJuego extends Pantalla {
         QUIETO
     }
 
-    //Arriba el boquita papá me la pela roman
+    //Arriba el boquita papá
 }

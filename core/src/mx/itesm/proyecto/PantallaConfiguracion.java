@@ -45,43 +45,13 @@ public class PantallaConfiguracion extends Pantalla {
         ImageButton btnRegresar = new ImageButton(trdRegresar, trdRegresarP);
 
 
+        btnRegresar.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 800);
+        btnVolumen.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
+        btnVolumenOff.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
 
-        btnRegresar.setPosition(ANCHO/2-btnRegresar.getWidth()/2 , 2*ALTO/3-800);
-        btnVolumen.setPosition(ANCHO/2-btnRegresar.getWidth()/2 , 2*ALTO/3-600);
-        btnVolumenOff.setPosition(ANCHO/2-btnRegresar.getWidth()/2 , 2*ALTO/3-600);
-        //Listener
-        btnRegresar.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaMenu(juego));
-            }
-        });
-        btnVolumenOff.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                //Aqui va la accion para apagar el volumen
-                escenaPantalla.addActor(btnVolumen);
+    }
 
 
-        }});
-
-        btnVolumen.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    //Aqui va la accion para encender el volumen
-
-            })
-
-
-
-        escenaPantalla.addActor(btnRegresar);
-        escenaPantalla.addActor(btnVolumenOff);
-
-        Gdx.input.setInputProcessor(escenaPantalla);
-    }}
 
     @Override
     public void render(float delta) {
@@ -112,10 +82,3 @@ public class PantallaConfiguracion extends Pantalla {
 }
 
 
-btnRegresar.addListener(new ClickListener(){
-@Override
-public void clicked(InputEvent event, float x, float y) {
-        super.clicked(event, x, y);
-        juego.setScreen(new PantallaMenu(juego));
-        }
-        });

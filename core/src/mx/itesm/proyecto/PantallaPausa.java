@@ -105,6 +105,8 @@ public class PantallaPausa extends Pantalla{
 
     }
 
+    //Comentario para commit
+
     @Override
     public void dispose() { texturaFondo.dispose();}
 }

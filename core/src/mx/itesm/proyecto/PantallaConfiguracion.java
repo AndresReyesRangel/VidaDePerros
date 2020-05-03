@@ -34,10 +34,10 @@ public class PantallaConfiguracion extends Pantalla {
         Texture texturaBtnRegresarP = new Texture("PantallaConfiguracion/btnRegresarP.png");
         TextureRegionDrawable trdRegresarP = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresarP));
         //Imagen btnVolumen
-        Texture texturaBtnVolumen = new Texture("PantallaConfiguracion/Sonido_Boton.png");
+         final Texture texturaBtnVolumen = new Texture("PantallaConfiguracion/Sonido_Boton.png");
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumen));
         //Imagen btnVolumenOff
-        Texture texturaBtnVolumenOff = new Texture("PantallaConfiguracion/Muted_Boton.png");
+        final Texture texturaBtnVolumenOff = new Texture("PantallaConfiguracion/Muted_Boton.png");
         TextureRegionDrawable trdVolumenOff = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumenOff));
 
         final ImageButton btnVolumen = new ImageButton(trdVolumen);
@@ -62,7 +62,9 @@ public class PantallaConfiguracion extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                btnVolumen;
+                escenaPantalla.addActor(btnVolumenOff);
+                btnVolumen.remove();
+
             }
         });
 
@@ -71,13 +73,14 @@ public class PantallaConfiguracion extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 escenaPantalla.addActor(btnVolumen);
+                btnVolumenOff.remove();
 
             }
         });
 
         escenaPantalla.addActor(btnRegresar);
         escenaPantalla.addActor(btnVolumen);
-        escenaPantalla.addActor(btnVolumenOff);
+
 
         Gdx.input.setInputProcessor(escenaPantalla);
     }
@@ -109,6 +112,7 @@ public class PantallaConfiguracion extends Pantalla {
     @Override
     public void dispose() {
         texturaFondo.dispose();
+
     }
 }
 

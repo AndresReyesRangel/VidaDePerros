@@ -4,8 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.security.AlgorithmConstraints;
 
@@ -20,6 +26,7 @@ class PantallaJuego extends Pantalla {
     //Fondo
     private Texture texturaFondo;
     private Fondo fondo;
+
 
     //Perro
     private Perro perro;
@@ -91,8 +98,8 @@ class PantallaJuego extends Pantalla {
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-
         fondo.render(batch);
+
         perro.render(batch);
 
 
@@ -145,6 +152,7 @@ class PantallaJuego extends Pantalla {
     public void crearFondo(){
 
         fondo = new Fondo(texturaFondo, 0, 0);
+
     }
 
     private void moverFondo(float delta) {
@@ -280,6 +288,19 @@ class PantallaJuego extends Pantalla {
         DERECHA,
         IZQUIERDA,
         QUIETO
+    }
+
+    class EscenaPausa extends Stage {
+
+
+    }
+
+    private enum EstadoJuego{
+        JUGANDO,
+        PAUSADO,
+        GANO,
+        PERDIO
+
     }
 
     //Arriba el boquita papá

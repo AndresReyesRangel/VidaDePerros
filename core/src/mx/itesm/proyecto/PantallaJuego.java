@@ -3,9 +3,14 @@ package mx.itesm.proyecto;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.security.AlgorithmConstraints;
 
@@ -38,6 +43,10 @@ class PantallaJuego extends Pantalla {
     //Marcador
     public Marcador marcador;
 
+
+    //Pausa
+    private EscenaPausa escenaPausa;
+    private EstadoJuego estadoJuego = EstadoJuego.JUGANDO; // JUGANDO, PAUSA, GANÓ, PERDIO
 
 
 
@@ -87,7 +96,9 @@ class PantallaJuego extends Pantalla {
     @Override
     public void render(float delta) {
         borrarPantalla();
-        actualizar(delta);
+        if(estadoJuego==EstadoJuego.JUGANDO) {
+            actualizar(delta);
+        }
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
@@ -108,6 +119,9 @@ class PantallaJuego extends Pantalla {
         batch.end();
 
         marcador.marcar(cont/60);
+        if(estadoJuego==EstadoJuego.PAUSADO) {
+            escenaPausa.draw();
+        }
     }
 
 
@@ -242,12 +256,17 @@ class PantallaJuego extends Pantalla {
 
             } else {
                 //IZQUIERDA
-                movimiento = Movimiento.IZQUIERDA;
+                //movimiento = Movimiento.IZQUIERDA;
 
-                /*Pausar el juego
+                //Pausar el juego
                 estadoJuego = EstadoJuego.PAUSADO;
-                if(escenaPausa == null){
-                    escenaPausa = new EscenaPausa(vista, batch);*/
+                if(escenaPausa == null) {
+                    escenaPausa = new EscenaPausa(vista, batch);
+                }else{
+                    escenaPausa = null;
+                    estadoJuego = EstadoJuego.JUGANDO;
+                }
+
                 }
 
             return true;
@@ -282,5 +301,25 @@ class PantallaJuego extends Pantalla {
         QUIETO
     }
 
-    //Arriba el boquita papá
+    class EscenaPausa extends Stage {
+
+        public EscenaPausa(Viewport vista, SpriteBatch batch){
+            super(vista, batch);
+
+            Texture texturaCirculo = new Texture("PantallaJuego/Juego_Pausa.png");
+
+            Image imagenCirculo = new Image(texturaCirculo);
+            imagenCirculo.setPosition((ANCHO - texturaCirculo.getWidth())/2 , ALTO/2);
+            this.addActor(imagenCirculo);
+        }
+    }
+
+    private enum EstadoJuego {
+        JUGANDO,
+        PAUSADO,
+        GANO,
+        PERDIO
+    }
+
+    //Arriba el boquita PAPÁ!!!!
 }

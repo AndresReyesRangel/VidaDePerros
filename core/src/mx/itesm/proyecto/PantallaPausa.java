@@ -35,19 +35,19 @@ public class PantallaPausa extends Pantalla{
         escenaPantalla = new Stage(vista);
 
         //Botón regresar a juego
-        Texture texturaBtnRegresarJuego= new Texture("");
+        Texture texturaBtnRegresarJuego= new Texture("PantallaPausa/Play_Boton.png");
         TextureRegionDrawable trdRegresarJuego = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresarJuego));
 
         //Botón regresar juego presionado
-        Texture texturaBtnRegresarJuegoP = new Texture("");
+        Texture texturaBtnRegresarJuegoP = new Texture("PantallaPausa/Play_Boton_pushed.png");
         TextureRegionDrawable trdRegresarJuegoP = new TextureRegionDrawable(new TextureRegion(texturaBtnRegresarJuegoP));
 
         //Botón salir del juego
-        Texture texturaBtnSalirJuego = new Texture("");
+        Texture texturaBtnSalirJuego = new Texture("PantallaPausa/Salir_Boton.png");
         TextureRegionDrawable trdSalirJuego = new TextureRegionDrawable(new TextureRegion(texturaBtnSalirJuego));
 
         //Botón salir del juego presionado
-        Texture texturaBtnSalirJuegoP = new Texture("");
+        Texture texturaBtnSalirJuegoP = new Texture("PantallaPausa/Salir_Boton_Pushed");
         TextureRegionDrawable trdSalirJuegoP = new TextureRegionDrawable(new TextureRegion(texturaBtnSalirJuegoP));
 
         //Acciones de los botones

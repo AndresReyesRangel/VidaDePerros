@@ -36,15 +36,10 @@ public class PantallaConfiguracion extends Pantalla {
         //Imagen btnVolumen
         final Texture texturaBtnVolumen = new Texture("PantallaConfiguracion/Sonido_Boton.png");
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumen));
-        //Imagen btnVolumenPushed
-        Texture texturaBtnVolumenP = new Texture("Muted_Boton_Pushed.png");
-        TextureRegionDrawable trdVolumenP = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumenP));
+
         //Imagen btnVolumenOff
         Texture texturaBtnVolumenOff = new Texture("PantallaConfiguracion/Muted_Boton.png");
         TextureRegionDrawable trdVolumenOff = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumenOff));
-        //Imagen btnVolumenOffPushed
-        Texture texturaBtnVolumenOffP = new Texture("Muted_Boton_Pushed.png");
-        TextureRegionDrawable trdVolumenOffP = new TextureRegionDrawable(new TextureRegion(texturaBtnVolumenP));
 
         final ImageButton btnVolumen = new ImageButton(trdVolumen);
         final ImageButton btnVolumenOff = new ImageButton(trdVolumenOff);

@@ -91,10 +91,7 @@ class PantallaJuego extends Pantalla {
     }
 
     private void crearPerro() {
-
         perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
-
-
     }
 
 
@@ -116,25 +113,9 @@ class PantallaJuego extends Pantalla {
         TextureRegionDrawable trdBtnPausaP = new TextureRegionDrawable(new TextureRegion(texturaBtnPausaP));
 
         ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);
-        botonPausa.setPosition(ANCHO/2 , ALTO/2);
-
-        botonPausa.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                estadoJuego = EstadoJuego.PAUSADO;
-                if(escenaPausa == null) {
-                    escenaPausa = new EscenaPausa(vista, batch);
-                }else{
-                    escenaPausa = null;
-                    estadoJuego = EstadoJuego.JUGANDO;
-                }
-
-            }
-        });
+        botonPausa.setPosition((ANCHO - texturaBtnPausa.getWidth())/2 , ALTO-90);
 
         escenaPantalla.addActor(botonPausa);
-        Gdx.input.setInputProcessor(escenaPantalla);
 
     }
 
@@ -164,8 +145,8 @@ class PantallaJuego extends Pantalla {
         marcador.render(batch);
 
         batch.end();
-
         marcador.marcar(cont/60);
+        escenaPantalla.draw();
         if(estadoJuego==EstadoJuego.PAUSADO) {
             escenaPausa.draw();
         }
@@ -294,31 +275,25 @@ class PantallaJuego extends Pantalla {
             Vector3 v = new Vector3(screenX, screenY, 0);
             camara.unproject(v);
 
-            if (v.x >= ANCHO / 2) {
-                //DERECHA
-                if(perro.getX()<ANCHO-texturaPerro.getWidth()){
-                    movimiento = Movimiento.DERECHA;
+            if(v.y <= ALTO-100) {
+                if (v.x >= ANCHO / 2) {
+                    //DERECHA
+                    if (perro.getX() < ANCHO - texturaPerro.getWidth()) {
+                        movimiento = Movimiento.DERECHA;
+                    }
+                } else {
+                    //IZQUIERDA
+                    movimiento = Movimiento.IZQUIERDA;
                 }
-
-
-            } else {
-                //IZQUIERDA
-                movimiento = Movimiento.IZQUIERDA;
-
-                //Pausar el juego
-                /*
-
+            }else if(v.x < 400 && v.x >300 ){
                 estadoJuego = EstadoJuego.PAUSADO;
                 if(escenaPausa == null) {
                     escenaPausa = new EscenaPausa(vista, batch);
-                }else{
+                }else {
                     escenaPausa = null;
                     estadoJuego = EstadoJuego.JUGANDO;
                 }
-                */
-
-
-                }
+            }
 
             return true;
         }

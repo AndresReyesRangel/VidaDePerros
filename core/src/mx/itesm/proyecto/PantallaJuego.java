@@ -119,7 +119,7 @@ class PantallaJuego extends Pantalla {
 
     }
 
-    //Comentario para el push
+    //Comentario para el push x2
 
 
 

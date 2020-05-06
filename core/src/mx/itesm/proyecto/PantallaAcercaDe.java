@@ -40,7 +40,7 @@ class PantallaAcercaDe extends Pantalla {
 
         ImageButton btnRegresar = new ImageButton(trdRegresar, trdRegresarP);
 
-        btnRegresar.setPosition(ANCHO- btnRegresar.getWidth() , ALTO-btnRegresar.getHeight() );
+        btnRegresar.setPosition(ANCHO- btnRegresar.getWidth() - 100 , ALTO-btnRegresar.getHeight() - 1000 );
         //Listener
         btnRegresar.addListener(new ClickListener(){
             @Override

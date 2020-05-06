@@ -6,10 +6,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.security.AlgorithmConstraints;
@@ -21,6 +26,9 @@ class PantallaJuego extends Pantalla {
     public int puntos = cont;
 
     private final Juego juego;
+
+    //Stage para el boton de pausa
+    private Stage escenaPantalla;
 
     //Fondo
     private Texture texturaFondo;
@@ -70,6 +78,7 @@ class PantallaJuego extends Pantalla {
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
+
     private void crearObstaculos() {
         oil = new Obstaculos(texturaOil, (ANCHO-texturaOil.getWidth())/2, ALTO - 100);
         caja = new Obstaculos(texturaCaja, 135-texturaCaja.getWidth()/2, ALTO*0.05f );
@@ -82,14 +91,51 @@ class PantallaJuego extends Pantalla {
     }
 
     private void crearPerro() {
+
         perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
+
+
     }
 
+
     private void cargarTexturas() {
+
+        escenaPantalla = new Stage(vista);
+
         texturaOil = new Texture("Obstáculos/oil.png");
         texturaCaja = new Texture("Obstáculos/Apple_box.png");
         texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo.png");
+
+        //Botón pausa
+        Texture texturaBtnPausa = new Texture("PantallaJuego/Pausa_Boton.png");
+        TextureRegionDrawable trdBtnPausa = new TextureRegionDrawable(new TextureRegion(texturaBtnPausa));
+
+        //Botón pausa presionado
+        Texture texturaBtnPausaP = new Texture("PantallaJuego/Pausa_Boton_Pushed.png");
+        TextureRegionDrawable trdBtnPausaP = new TextureRegionDrawable(new TextureRegion(texturaBtnPausaP));
+
+        ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);
+        botonPausa.setPosition(ANCHO/2 , ALTO/2);
+
+        botonPausa.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                estadoJuego = EstadoJuego.PAUSADO;
+                if(escenaPausa == null) {
+                    escenaPausa = new EscenaPausa(vista, batch);
+                }else{
+                    escenaPausa = null;
+                    estadoJuego = EstadoJuego.JUGANDO;
+                }
+
+            }
+        });
+
+        escenaPantalla.addActor(botonPausa);
+        Gdx.input.setInputProcessor(escenaPantalla);
+
     }
 
 
@@ -102,10 +148,8 @@ class PantallaJuego extends Pantalla {
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-
         fondo.render(batch);
         perro.render(batch);
-
 
 
         //obstaculos
@@ -256,9 +300,11 @@ class PantallaJuego extends Pantalla {
 
             } else {
                 //IZQUIERDA
-                //movimiento = Movimiento.IZQUIERDA;
+                movimiento = Movimiento.IZQUIERDA;
 
                 //Pausar el juego
+                /*
+
                 estadoJuego = EstadoJuego.PAUSADO;
                 if(escenaPausa == null) {
                     escenaPausa = new EscenaPausa(vista, batch);
@@ -266,6 +312,8 @@ class PantallaJuego extends Pantalla {
                     escenaPausa = null;
                     estadoJuego = EstadoJuego.JUGANDO;
                 }
+                */
+
 
                 }
 

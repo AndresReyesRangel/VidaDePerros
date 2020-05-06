@@ -116,7 +116,8 @@ class PantallaJuego extends Pantalla {
         TextureRegionDrawable trdBtnPausaP = new TextureRegionDrawable(new TextureRegion(texturaBtnPausaP));
 
         ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);
-        botonPausa.setPosition(ANCHO/2 , ALTO/2);
+        botonPausa.setPosition((ANCHO-texturaBtnPausa.getWidth())/2 , ALTO-90);
+
 
         botonPausa.addListener(new ClickListener(){
             @Override
@@ -124,6 +125,7 @@ class PantallaJuego extends Pantalla {
                 super.clicked(event, x, y);
                 estadoJuego = EstadoJuego.PAUSADO;
                 if(escenaPausa == null) {
+                    System.out.println("entro");
                     escenaPausa = new EscenaPausa(vista, batch);
                 }else{
                     escenaPausa = null;
@@ -164,6 +166,7 @@ class PantallaJuego extends Pantalla {
         marcador.render(batch);
 
         batch.end();
+        escenaPantalla.draw();
 
         marcador.marcar(cont/60);
         if(estadoJuego==EstadoJuego.PAUSADO) {

@@ -18,4 +18,5 @@ public class Objeto {
         sprite.draw(batch);
     }
 
+
 }

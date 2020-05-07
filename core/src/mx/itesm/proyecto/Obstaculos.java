@@ -22,4 +22,7 @@ public class Obstaculos extends Objeto {
         float dy = vy * dt;
         sprite.setY(sprite.getY() - dy);
     }
+
+
+
 }

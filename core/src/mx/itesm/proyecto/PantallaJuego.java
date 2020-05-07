@@ -3,8 +3,6 @@ package mx.itesm.proyecto;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,8 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 import java.security.AlgorithmConstraints;
@@ -37,8 +33,6 @@ class PantallaJuego extends Pantalla {
     Random oilRanPosicion = new Random();
     Random coladeraRanPosicion = new Random();
     Random cajaRanPosicion = new Random();
-
-
 
 
     private final Juego juego;
@@ -91,12 +85,8 @@ class PantallaJuego extends Pantalla {
         crearObstaculos();
         crearMarcador();
 
-
-
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
-
-
 
 
     private void crearObstaculos() {
@@ -138,7 +128,10 @@ class PantallaJuego extends Pantalla {
         ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);
         botonPausa.setPosition((ANCHO - texturaBtnPausa.getWidth())/2 , ALTO-90);
 
+
+
         escenaPantalla.addActor(botonPausa);
+
 
     }
 
@@ -221,50 +214,50 @@ class PantallaJuego extends Pantalla {
 
 
 
-            if (oil.getY() < 0) {
-                oil.setY(randomOil);
-                if(randomOilPosicion == 0){
-                    //Carril izquierda
-                    oil.setX(135 - texturaOil.getWidth()+100);
-                }if(randomOilPosicion == 2){
-                    //Carril en medio
-                    oil.setX(520 - texturaOil.getWidth()-100 );
-                }if(randomOilPosicion == 1){
-                    //Carril derecha
-                    oil.setX(ANCHO - texturaOil.getWidth()-90);
-                }
-
-
+        if (oil.getY() < 0) {
+            oil.setY(randomOil);
+            if(randomOilPosicion == 0){
+                //Carril izquierda
+                oil.setX(135 - texturaOil.getWidth()+100);
+            }if(randomOilPosicion == 2){
+                //Carril en medio
+                oil.setX(520 - texturaOil.getWidth()-100 );
+            }if(randomOilPosicion == 1){
+                //Carril derecha
+                oil.setX(ANCHO - texturaOil.getWidth()-90);
             }
 
-            if (caja.getY() < 0) {
-                caja.setY(randomCaja);
-                if(randomCajaPosicion == 0){
 
-                    caja.setX(135 - texturaCaja.getWidth() +50);
-                }if(randomCajaPosicion == 2){
+        }
 
-                    caja.setX(520 - texturaCaja.getWidth()-60);
-                }if(randomCajaPosicion == 1){
+        if (caja.getY() < 0) {
+            caja.setY(randomCaja);
+            if(randomCajaPosicion == 0){
 
-                    caja.setX(ANCHO - texturaCaja.getWidth() -100);
-                }
+                caja.setX(135 - texturaCaja.getWidth() +50);
+            }if(randomCajaPosicion == 2){
 
+                caja.setX(520 - texturaCaja.getWidth()-60);
+            }if(randomCajaPosicion == 1){
+
+                caja.setX(ANCHO - texturaCaja.getWidth() -100);
             }
 
-            if (coladera.getY() < 0) {
-                coladera.setY(randomColadera);
-                if(ramdomColaderaPosicion == 0){
+        }
 
-                    coladera.setX(135 - texturaCaja.getWidth() +50 );
-                }if(ramdomColaderaPosicion == 2){
+        if (coladera.getY() < 0) {
+            coladera.setY(randomColadera);
+            if(ramdomColaderaPosicion == 0){
 
-                    coladera.setX(520 - texturaColadera.getWidth() -70 );
-                }if(ramdomColaderaPosicion == 1){
+                coladera.setX(135 - texturaCaja.getWidth() +50 );
+            }if(ramdomColaderaPosicion == 2){
 
-                    coladera.setX(ANCHO - texturaOil.getWidth() -80);
-                }
+                coladera.setX(520 - texturaColadera.getWidth() -70 );
+            }if(ramdomColaderaPosicion == 1){
+
+                coladera.setX(ANCHO - texturaOil.getWidth() -80);
             }
+        }
 
     }
 

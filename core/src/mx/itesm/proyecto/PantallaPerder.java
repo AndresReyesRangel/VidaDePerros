@@ -77,7 +77,7 @@ class PantallaPerder extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo,0,0);
-        marcador.render(batch);
+        marcador.render2(batch);
         batch.end();
 
         escenaPerder.draw();

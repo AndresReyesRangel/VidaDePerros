@@ -30,6 +30,9 @@ class PantallaJuego extends Pantalla {
     Random oilRan = new Random();
     Random coladeraRan = new Random();
     Random cajaRan = new Random();
+    Random oilRanPosicion = new Random();
+    Random coladeraRanPosicion = new Random();
+    Random cajaRanPosicion = new Random();
 
 
     private final Juego juego;
@@ -166,9 +169,6 @@ class PantallaJuego extends Pantalla {
             variableJeje+=10;
         }
 
-
-        System.out.println(variableJeje);
-        System.out.println( "cont" +cont/60);
         marcador.marcar(cont/60);
         escenaPantalla.draw();
         if(estadoJuego==EstadoJuego.PAUSADO) {
@@ -200,23 +200,60 @@ class PantallaJuego extends Pantalla {
         coladera.mover(delta*variableJeje/2);
 
         int randomOil = 1280+oilRan.nextInt(1500);
-        int randomCaja = 1280+coladeraRan.nextInt(1500);
-        int randomColadera = 1280+cajaRan.nextInt(1500);
+        int randomCaja = 1280+cajaRan.nextInt(1500);
+        int randomColadera = 1280+coladeraRan.nextInt(1500);
+
+        int randomOilPosicion = oilRanPosicion.nextInt(3);
+        int randomCajaPosicion = cajaRanPosicion.nextInt(3);
+        int ramdomColaderaPosicion = coladeraRanPosicion.nextInt(3);
+
+        System.out.println(randomOilPosicion);
 
 
 
             if (oil.getY() < 0) {
                 oil.setY(randomOil);
+                if(randomOilPosicion == 0){
+
+                    oil.setX(135 - texturaCaja.getWidth());
+                }if(randomOilPosicion == 2){
+
+                    oil.setX(520 - texturaColadera.getWidth() );
+                }if(randomOilPosicion == 1){
+
+                    oil.setX(ANCHO - texturaOil.getWidth());
+                }
+
 
             }
 
             if (caja.getY() < 0) {
                 caja.setY(randomCaja);
+                if(randomCajaPosicion == 0){
+
+                    caja.setX(135 - texturaCaja.getWidth());
+                }if(randomCajaPosicion == 2){
+
+                    caja.setX(520 - texturaColadera.getWidth() );
+                }if(randomCajaPosicion == 1){
+
+                    caja.setX(ANCHO - texturaOil.getWidth());
+                }
 
             }
 
             if (coladera.getY() < 0) {
                 coladera.setY(randomColadera);
+                if(ramdomColaderaPosicion == 0){
+
+                    coladera.setX(135 - texturaCaja.getWidth());
+                }if(ramdomColaderaPosicion == 2){
+
+                    coladera.setX(520 - texturaColadera.getWidth() );
+                }if(ramdomColaderaPosicion == 1){
+
+                    coladera.setX(ANCHO - texturaOil.getWidth());
+                }
             }
 
     }

@@ -18,6 +18,10 @@ public class Obstaculos extends Objeto {
         return sprite.getY();
     }
 
+    public void setX(float dx){
+        sprite.setX(dx);
+    }
+
     public void mover(float dt){
         float dy = vy * dt;
         sprite.setY(sprite.getY() - dy);

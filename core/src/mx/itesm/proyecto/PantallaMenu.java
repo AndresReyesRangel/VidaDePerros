@@ -50,10 +50,10 @@ class PantallaMenu extends Pantalla {
         Texture texturaBtnInstruccionesP = new Texture("Menu/btnInstruccionesP.png");
         TextureRegionDrawable trdInstruccionesP = new TextureRegionDrawable(new TextureRegion(texturaBtnInstruccionesP));
 
-        Texture texturaBtnConfiguracion = new Texture("Menu/btnInstrucciones.png");
-        TextureRegionDrawable trdConfiguracion = new TextureRegionDrawable(new TextureRegion(texturaBtnInstrucciones));
-        Texture texturaBtnConfiguracionP = new Texture("Menu/btnInstruccionesP.png");
-        TextureRegionDrawable trdConfiguracionP = new TextureRegionDrawable(new TextureRegion(texturaBtnInstruccionesP));
+        Texture texturaBtnConfiguracion = new Texture("Menu/btnConfig.png");
+        TextureRegionDrawable trdConfiguracion = new TextureRegionDrawable(new TextureRegion(texturaBtnConfiguracion));
+        Texture texturaBtnConfiguracionP = new Texture("Menu/btnConfigP.png");
+        TextureRegionDrawable trdConfiguracionP = new TextureRegionDrawable(new TextureRegion(texturaBtnConfiguracionP));
 
         //Cargando los botones
 

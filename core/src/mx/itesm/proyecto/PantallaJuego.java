@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import java.util.Random;
 
 import java.security.AlgorithmConstraints;
 
@@ -23,7 +24,16 @@ class PantallaJuego extends Pantalla {
 
     private int cont;
     private int tiempo;
+    private int variableJeje;
     public int puntos = cont;
+
+    Random oilRan = new Random();
+    Random coladeraRan = new Random();
+    Random cajaRan = new Random();
+    Random oilRanPosicion = new Random();
+    Random coladeraRanPosicion = new Random();
+    Random cajaRanPosicion = new Random();
+
 
     private final Juego juego;
 
@@ -80,9 +90,12 @@ class PantallaJuego extends Pantalla {
 
 
     private void crearObstaculos() {
-        oil = new Obstaculos(texturaOil, (ANCHO-texturaOil.getWidth())/2, ALTO - 100);
-        caja = new Obstaculos(texturaCaja, 135-texturaCaja.getWidth()/2, ALTO*0.05f );
-        coladera = new Obstaculos(texturaColadera, 520-texturaColadera.getWidth()/2, ALTO*0.05f);
+
+        oil = new Obstaculos(texturaOil, (ANCHO - texturaOil.getWidth()) / 2, ALTO - 100);
+        caja = new Obstaculos(texturaCaja, 135 - texturaCaja.getWidth() / 2, ALTO +100f);
+        coladera = new Obstaculos(texturaColadera, 520 - texturaColadera.getWidth() / 2, ALTO * 0.05f);
+
+
     }
 
     private void crearMarcador() {
@@ -126,8 +139,11 @@ class PantallaJuego extends Pantalla {
     @Override
     public void render(float delta) {
         borrarPantalla();
+
+
+
         if(estadoJuego==EstadoJuego.JUGANDO) {
-            actualizar(delta);
+                actualizar(delta);
         }
 
         batch.setProjectionMatrix(camara.combined);
@@ -137,7 +153,10 @@ class PantallaJuego extends Pantalla {
 
 
         //obstaculos
+
         oil.render(batch);
+
+
         coladera.render(batch);
         caja.render(batch);
 
@@ -145,11 +164,17 @@ class PantallaJuego extends Pantalla {
         marcador.render(batch);
 
         batch.end();
+
+        if(cont/60 == (variableJeje) ){
+            variableJeje+=10;
+        }
+
         marcador.marcar(cont/60);
         escenaPantalla.draw();
         if(estadoJuego==EstadoJuego.PAUSADO) {
             escenaPausa.draw();
         }
+
     }
 
 
@@ -167,21 +192,70 @@ class PantallaJuego extends Pantalla {
 
     private void moverObstaculo(float delta) {
 
-        oil.mover(delta*1.5f);
-        caja.mover(delta);
-        coladera.mover(delta);
 
-        if(oil.getY() < 0){
-            oil.setY(ALTO);
-        }
 
-        if(caja.getY() < 0){
-            caja.setY(ALTO);
-        }
 
-        if(coladera.getY() < 0){
-            coladera.setY(ALTO);
-        }
+        oil.mover(delta*variableJeje/2);
+        caja.mover(delta*variableJeje/2);
+        coladera.mover(delta*variableJeje/2);
+
+        int randomOil = 1280+oilRan.nextInt(1500);
+        int randomCaja = 1280+cajaRan.nextInt(1500);
+        int randomColadera = 1280+coladeraRan.nextInt(1500);
+
+        int randomOilPosicion = oilRanPosicion.nextInt(3);
+        int randomCajaPosicion = cajaRanPosicion.nextInt(3);
+        int ramdomColaderaPosicion = coladeraRanPosicion.nextInt(3);
+
+        System.out.println(randomOilPosicion);
+
+
+
+            if (oil.getY() < 0) {
+                oil.setY(randomOil);
+                if(randomOilPosicion == 0){
+
+                    oil.setX(135 - texturaCaja.getWidth());
+                }if(randomOilPosicion == 2){
+
+                    oil.setX(520 - texturaColadera.getWidth() );
+                }if(randomOilPosicion == 1){
+
+                    oil.setX(ANCHO - texturaOil.getWidth());
+                }
+
+
+            }
+
+            if (caja.getY() < 0) {
+                caja.setY(randomCaja);
+                if(randomCajaPosicion == 0){
+
+                    caja.setX(135 - texturaCaja.getWidth());
+                }if(randomCajaPosicion == 2){
+
+                    caja.setX(520 - texturaColadera.getWidth() );
+                }if(randomCajaPosicion == 1){
+
+                    caja.setX(ANCHO - texturaOil.getWidth());
+                }
+
+            }
+
+            if (coladera.getY() < 0) {
+                coladera.setY(randomColadera);
+                if(ramdomColaderaPosicion == 0){
+
+                    coladera.setX(135 - texturaCaja.getWidth());
+                }if(ramdomColaderaPosicion == 2){
+
+                    coladera.setX(520 - texturaColadera.getWidth() );
+                }if(ramdomColaderaPosicion == 1){
+
+                    coladera.setX(ANCHO - texturaOil.getWidth());
+                }
+            }
+
     }
 
     public void crearFondo(){
@@ -252,6 +326,7 @@ class PantallaJuego extends Pantalla {
     @Override
     public void dispose() {
         texturaPerro.dispose();
+
     }
 
     private class ProcesadorEntrada implements InputProcessor {

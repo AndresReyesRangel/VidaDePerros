@@ -25,7 +25,6 @@ class PantallaJuego extends Pantalla {
     private int cont;
     private int tiempo;
     private int variableJeje;
-    public int puntos = cont;
 
     Random oilRan = new Random();
     Random coladeraRan = new Random();
@@ -72,9 +71,6 @@ class PantallaJuego extends Pantalla {
         this.juego = juego;
     }
 
-    public int getPuntos(){
-        return puntos;
-    }
 
     @Override
     public void show() {
@@ -410,7 +406,7 @@ class PantallaJuego extends Pantalla {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista, batch);
 
-            Texture texturaCirculo = new Texture("PantallaJuego/Juego_Pausa.png");
+            Texture texturaCirculo = new Texture("PantallaJuego/Juego_pausa.png");
 
             Image imagenCirculo = new Image(texturaCirculo);
             imagenCirculo.setPosition((ANCHO - texturaCirculo.getWidth())/2 , ALTO/2);

@@ -19,6 +19,7 @@ class PantallaMenu extends Pantalla {
     private Texture texturaFondo;
 
     //Musica
+    AssetManager manager;
     private Music audioFondo;
 
     //MENU
@@ -37,15 +38,13 @@ class PantallaMenu extends Pantalla {
     }
 
     private void cargarMusica() {
-
-
-        AssetManager manager = new AssetManager();
+        manager = new AssetManager();
         manager.load("Music/MainMenu.mp3", Music.class);
         manager.finishLoading();
         audioFondo = manager.get("Music/MainMenu.mp3");
         audioFondo.setLooping(true);
+        audioFondo.setVolume(0.5f);
         audioFondo.play();
-
     }
 
     private void crearMenu() {
@@ -151,5 +150,6 @@ class PantallaMenu extends Pantalla {
     @Override
     public void dispose() {
         texturaFondo.dispose();
+        escenaMenu.dispose();
     }
 }

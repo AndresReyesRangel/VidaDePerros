@@ -122,7 +122,7 @@ class PantallaJuego extends Pantalla {
         TextureRegionDrawable trdBtnPausa = new TextureRegionDrawable(new TextureRegion(texturaBtnPausa));
 
         //Botón pausa presionado
-        Texture texturaBtnPausaP = new Texture("PantallaJuego/Pausa_Boton_Pushed.png");
+        Texture texturaBtnPausaP = new Texture("PantallaJuego/Pausa_Boton_pushed.png");
         TextureRegionDrawable trdBtnPausaP = new TextureRegionDrawable(new TextureRegion(texturaBtnPausaP));
 
         ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);

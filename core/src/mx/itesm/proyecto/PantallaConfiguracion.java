@@ -64,6 +64,7 @@ public class PantallaConfiguracion extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 escenaPantalla.addActor(btnVolumenOff);
+                juego.pausarMusica(5);
                 btnVolumen.remove();
             }
         });
@@ -73,6 +74,7 @@ public class PantallaConfiguracion extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 escenaPantalla.addActor(btnVolumen);
+                juego.reproducirMusica(5);
                 btnVolumenOff.remove();
             }
         });

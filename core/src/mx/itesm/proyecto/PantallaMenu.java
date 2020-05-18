@@ -18,10 +18,6 @@ class PantallaMenu extends Pantalla {
     private final Juego juego;
     private Texture texturaFondo;
 
-    //Musica
-    AssetManager manager;
-    private Music audioFondo;
-
     //MENU
     private Stage escenaMenu;
 
@@ -34,17 +30,6 @@ class PantallaMenu extends Pantalla {
     public void show() {
         texturaFondo = new Texture("Menu/fondoMenu.png");
         crearMenu();
-        cargarMusica();
-    }
-
-    private void cargarMusica() {
-        manager = new AssetManager();
-        manager.load("Music/MainMenu.mp3", Music.class);
-        manager.finishLoading();
-        audioFondo = manager.get("Music/MainMenu.mp3");
-        audioFondo.setLooping(true);
-        audioFondo.setVolume(0.5f);
-        audioFondo.play();
     }
 
     private void crearMenu() {

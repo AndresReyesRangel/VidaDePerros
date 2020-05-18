@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Music;
 
 public class Juego extends Game {
 
-
+ // comentario para commit
 	//Musica
 	AssetManager manager;
 	private Music audioFondo;

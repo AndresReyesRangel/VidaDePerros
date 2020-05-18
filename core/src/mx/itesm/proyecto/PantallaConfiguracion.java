@@ -47,8 +47,8 @@ public class PantallaConfiguracion extends Pantalla {
 
         //Posiciones de los botones
         btnRegresar.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 800);
-        btnVolumen.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
-        btnVolumenOff.setPosition(ANCHO / 2 - btnRegresar.getWidth() / 2, 2 * ALTO / 3 - 600);
+        btnVolumen.setPosition((ANCHO - btnRegresar.getWidth()) / 2, ALTO /2 );
+        btnVolumenOff.setPosition((ANCHO - btnRegresar.getWidth()) / 2, ALTO / 2);
 
         //Listeners de los botones
         btnRegresar.addListener(new ClickListener(){

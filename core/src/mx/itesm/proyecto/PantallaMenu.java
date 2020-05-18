@@ -65,9 +65,9 @@ class PantallaMenu extends Pantalla {
         ImageButton btnConfiguracion = new ImageButton(trdConfiguracion, trdConfiguracionP);
 
         btnJugar.setPosition(ANCHO/2-btnJugar.getWidth()/2 , 2*ALTO/3-300);
-        btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3-200);
-        btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3);
-        btnConfiguracion.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3-90);
+        btnAcercaDe.setPosition(ANCHO/2-btnJugar.getWidth()/2, ALTO/3-130); // btn creditos
+        btnInstrucciones.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/3); // ya está chido
+        btnConfiguracion.setPosition(ANCHO/2-btnInstrucciones.getWidth()/2, ALTO/9+25);
 
         //Listener
         btnJugar.addListener(new ClickListener(){

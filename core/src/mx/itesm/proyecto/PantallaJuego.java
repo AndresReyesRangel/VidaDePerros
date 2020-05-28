@@ -111,7 +111,7 @@ class PantallaJuego extends Pantalla {
         texturaOil = new Texture("Obstáculos/oil.png");
         texturaCaja = new Texture("Obstáculos/Apple_box.png");
         texturaColadera = new Texture("Obstáculos/Coladera.png");
-        texturaPerro = new Texture("Perro/perro_nuevo.png");
+        texturaPerro = new Texture("Perro/perro_nuevo_mov.png");
 
         //Botón pausa
         Texture texturaBtnPausa = new Texture("PantallaJuego/Pausa_Boton.png");

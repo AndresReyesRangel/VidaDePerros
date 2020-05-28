@@ -89,7 +89,7 @@ class PantallaJuego extends Pantalla {
 
         oil = new Obstaculos(texturaOil, (ANCHO - texturaOil.getWidth()) / 2, ALTO - 100);
         caja = new Obstaculos(texturaCaja, 135 - texturaCaja.getWidth() / 2, ALTO +100f);
-        coladera = new Obstaculos(texturaColadera, 520 - texturaColadera.getWidth() / 2, ALTO * 0.05f);
+        coladera = new Obstaculos(texturaColadera, 520 - texturaColadera.getWidth()/2, ALTO * 0.05f);
 
 
     }
@@ -100,7 +100,8 @@ class PantallaJuego extends Pantalla {
     }
 
     private void crearPerro() {
-        perro = new Perro(texturaPerro, (ANCHO-texturaPerro.getWidth())/2, ALTO * 0.05f);
+        perro = new Perro(texturaPerro, ANCHO, ALTO * 0.05f);
+        perro.setX((ANCHO-perro.sprite.getWidth())/2);
     }
 
 
@@ -148,8 +149,8 @@ class PantallaJuego extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         fondo.render(batch);
-        perro.render(batch);
 
+        perro.renderP(batch, perro.sprite.getX(),perro.sprite.getY());
 
         //obstaculos
 
@@ -205,9 +206,6 @@ class PantallaJuego extends Pantalla {
         int randomOilPosicion = oilRanPosicion.nextInt(3);
         int randomCajaPosicion = cajaRanPosicion.nextInt(3);
         int ramdomColaderaPosicion = coladeraRanPosicion.nextInt(3);
-
-        System.out.println(randomOilPosicion);
-
 
 
         if (oil.getY() < 0) {
@@ -270,29 +268,30 @@ class PantallaJuego extends Pantalla {
 
     }
 
+    // Revisar el movimiento.
     private void moverPerro() {
 
-        pasosPerro = perro.getX();
+        pasosPerro = perro.sprite.getX();
         //Movimiento para pasar del carril de la izquierda al carril de en medio
-        if(movimiento == Movimiento.DERECHA && (0<perro.getX() && perro.getX()<240)){
+        if(movimiento == Movimiento.DERECHA && (0<perro.sprite.getX() && perro.sprite.getX()<240)){
 
-            perro.setX(360-(texturaPerro.getWidth()/2));
+            perro.sprite.setPosition(360-(perro.sprite.getWidth()/2), perro.sprite.getY());
             movimiento = Movimiento.QUIETO;
 
             //Para pasar del carril de en medio al de la derecha
-        }else if(movimiento == Movimiento.DERECHA && (240<perro.getX() && perro.getX()<480)){
+        }else if(movimiento == Movimiento.DERECHA && (240<perro.sprite.getX() && perro.sprite.getX()<480)){
 
-            perro.setX(520);
+            perro.sprite.setPosition(520, perro.sprite.getY());
 
             //Para pasar del carril de en medio al de la izquierda
-        }else if(movimiento == Movimiento.IZQUIERDA && (240<perro.getX() && perro.getX()<480)){
+        }else if(movimiento == Movimiento.IZQUIERDA && (240<perro.sprite.getX() && perro.sprite.getX()<480)){
 
-            perro.setX(135);
+            perro.sprite.setX(135);
 
             //Para pasar del carril de la derecha al de en medio
-        }else if(movimiento == Movimiento.IZQUIERDA && (480<perro.getX() && perro.getX()<720)){
+        }else if(movimiento == Movimiento.IZQUIERDA && (480<perro.sprite.getX() && perro.sprite.getX()<720)){
 
-            perro.setX(360-(texturaPerro.getWidth())/2);
+            perro.sprite.setX(360-(perro.sprite.getWidth())/2);
             movimiento = Movimiento.QUIETO;
         }
 
@@ -352,7 +351,8 @@ class PantallaJuego extends Pantalla {
             if(v.y <= ALTO-100) {
                 if (v.x >= ANCHO / 2) {
                     //DERECHA
-                    if (perro.getX() < ANCHO - texturaPerro.getWidth()) {
+                    if (perro.sprite.getX() < ANCHO - perro.sprite.getWidth()) {
+
                         movimiento = Movimiento.DERECHA;
                     }
                 } else {

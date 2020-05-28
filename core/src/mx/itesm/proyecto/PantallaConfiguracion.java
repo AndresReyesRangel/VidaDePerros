@@ -1,6 +1,7 @@
 package mx.itesm.proyecto;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,9 @@ public class PantallaConfiguracion extends Pantalla {
     private Texture texturaFondo;
 
     private Stage escenaPantalla;
+
+    private Preferences prefs;
+    boolean A=true;
 
     public PantallaConfiguracion(Juego juego){
         this.juego = juego;
@@ -63,9 +67,11 @@ public class PantallaConfiguracion extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                escenaPantalla.addActor(btnVolumenOff);
                 juego.pausarMusica(5);
+                escenaPantalla.addActor(btnVolumenOff);
                 btnVolumen.remove();
+
+
             }
         });
 
@@ -76,6 +82,7 @@ public class PantallaConfiguracion extends Pantalla {
                 escenaPantalla.addActor(btnVolumen);
                 juego.reproducirMusica(5);
                 btnVolumenOff.remove();
+
             }
         });
 

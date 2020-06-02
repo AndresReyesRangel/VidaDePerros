@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,11 +22,12 @@ import java.util.Random;
 
 import java.security.AlgorithmConstraints;
 
-class PantallaJuego extends Pantalla {
+class PantallaJuego extends Pantalla implements GestureDetector.GestureListener {
 
     private int cont;
     private int tiempo;
     private int variableJeje;
+    private boolean booleano = false;
 
     Random oilRan = new Random();
     Random coladeraRan = new Random();
@@ -80,8 +83,6 @@ class PantallaJuego extends Pantalla {
         crearPerro();
         crearObstaculos();
         crearMarcador();
-
-        Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
 
@@ -123,13 +124,34 @@ class PantallaJuego extends Pantalla {
         TextureRegionDrawable trdBtnPausaP = new TextureRegionDrawable(new TextureRegion(texturaBtnPausaP));
 
         ImageButton botonPausa = new ImageButton(trdBtnPausa, trdBtnPausaP);
-        botonPausa.setPosition((ANCHO - texturaBtnPausa.getWidth())/2 , ALTO-90);
+        botonPausa.setPosition((ANCHO - texturaBtnPausa.getWidth()) / 2, ALTO - 90);
 
+        botonPausa.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                estadoJuego = EstadoJuego.PAUSADO;
+                if (escenaPausa == null) {
+                    escenaPausa = new EscenaPausa(vista, batch);
+                } else {
+                    escenaPausa = null;
+                    estadoJuego = EstadoJuego.JUGANDO;
+                }
+                booleano = true;
 
+            }
+        });
 
         escenaPantalla.addActor(botonPausa);
+        // no estoy seguro
 
-
+        if (botonPausa.isPressed()){
+            Gdx.input.setInputProcessor(escenaPantalla);
+            System.out.println("Sí estoy jalando :D");
+        } else {
+            Gdx.input.setInputProcessor(new GestureDetector(this));
+            System.out.println("Sí estoy jalando pero con otro input :D");
+        }
     }
 
     //Comentario para el push x2
@@ -327,72 +349,57 @@ class PantallaJuego extends Pantalla {
 
     }
 
-    private class ProcesadorEntrada implements InputProcessor {
-        @Override
-        public boolean keyDown(int keycode) {
-            return false;
-        }
+    @Override
+    public boolean touchDown(float x, float y, int pointer, int button) {
 
-        @Override
-        public boolean keyUp(int keycode) {
-            return false;
-        }
-
-        @Override
-        public boolean keyTyped(char character) {
-            return false;
-        }
-
-        @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            Vector3 v = new Vector3(screenX, screenY, 0);
-            camara.unproject(v);
-
-            if(v.y <= ALTO-100) {
-                if (v.x >= ANCHO / 2) {
-                    //DERECHA
-                    if (perro.sprite.getX() < ANCHO - perro.sprite.getWidth()) {
-
-                        movimiento = Movimiento.DERECHA;
-                    }
-                } else {
-                    //IZQUIERDA
-                    movimiento = Movimiento.IZQUIERDA;
-                }
-            }else if(v.x < 400 && v.x >300 ){
-                estadoJuego = EstadoJuego.PAUSADO;
-                if(escenaPausa == null) {
-                    escenaPausa = new EscenaPausa(vista, batch);
-                }else {
-                    escenaPausa = null;
-                    estadoJuego = EstadoJuego.JUGANDO;
-                }
-            }
-
-            return true;
-        }
-
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            movimiento = Movimiento.QUIETO;
-            return true;
-        }
-
-        @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
-            return false;
-        }
-
-        @Override
-        public boolean mouseMoved(int screenX, int screenY) {
-            return false;
-        }
-
-        @Override
-        public boolean scrolled(int amount) {
-            return false;
-        }
+        return false;
     }
+
+    @Override
+    public boolean tap(float x, float y, int count, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean longPress(float x, float y) {
+        return false;
+    }
+
+    @Override
+    public boolean fling(float velocityX, float velocityY, int button) {
+        if(velocityX<0){
+            movimiento = Movimiento.IZQUIERDA;
+        }else if(velocityX>0){
+            movimiento = Movimiento.DERECHA;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean pan(float x, float y, float deltaX, float deltaY) {
+        return false;
+    }
+
+    @Override
+    public boolean panStop(float x, float y, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean zoom(float initialDistance, float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+        return false;
+    }
+
+    @Override
+    public void pinchStop() {
+
+    }
+
 
     //Movimiento
     public enum Movimiento {

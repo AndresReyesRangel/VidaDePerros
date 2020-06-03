@@ -232,6 +232,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         if(cont/60 == (tiempoLomito)){
             tiempoLomito +=2;
             lomito = estadoLomito.noEstampado;
+
         }
 
         marcador.marcar(cont/60);
@@ -331,7 +332,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             agua.setY(randomAgua);
             if(ramdomColaderaPosicion == 0){
 
-                agua.setX(135 - texturaCaja.getWidth() + 40 );
+                agua.setX(135 - texturaCaja.getWidth() + 90 );
             }if(ramdomColaderaPosicion == 2){
 
                 agua.setX(520 - texturaColadera.getWidth() -40 );
@@ -420,8 +421,10 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             juego.setScreen(new PantallaPerder(juego, puntos));
 
         }else if(rectAgua.overlaps(rectPerro) && cantidadVida<3){
+
             cantidadVida++;
             vida.marcarVida(cantidadVida);
+
             lomito = estadoLomito.estampado;
         }
 

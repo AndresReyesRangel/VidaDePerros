@@ -22,6 +22,8 @@ import java.util.Random;
 
 import java.security.AlgorithmConstraints;
 
+import sun.rmi.transport.ObjectTable;
+
 class PantallaJuego extends Pantalla implements GestureDetector.GestureListener {
 
     private int cont;
@@ -33,9 +35,13 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     Random oilRan = new Random();
     Random coladeraRan = new Random();
     Random cajaRan = new Random();
+    Random galletaRan = new Random();
+    Random aguaRan = new Random();
     Random oilRanPosicion = new Random();
     Random coladeraRanPosicion = new Random();
     Random cajaRanPosicion = new Random();
+    Random aguaRanPosicion = new Random();
+    Random galletaRanPosicion = new Random();
 
 
     private final Juego juego;
@@ -58,9 +64,13 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private Texture texturaOil;
     private Texture texturaCaja;
     private Texture texturaColadera;
+    private Texture texturaAgua;
+    private Texture texturaGalleta;
     private Obstaculos oil;
     private Obstaculos caja;
     private Obstaculos coladera;
+    private Obstaculos agua;
+    private Obstaculos galleta;
 
     //Marcador
     public Marcador marcador;
@@ -94,8 +104,9 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     }
 
     private void crearVida() {
-        vida = new Vida(520,1250);
+        vida = new Vida(600,1250);
         vida.marcarVida(cantidadVida);
+
 
     }
 
@@ -105,6 +116,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         oil = new Obstaculos(texturaOil, (ANCHO - texturaOil.getWidth()) / 2, ALTO - 100);
         caja = new Obstaculos(texturaCaja, 135 - texturaCaja.getWidth() / 2, ALTO +100f);
         coladera = new Obstaculos(texturaColadera, 520 - texturaColadera.getWidth()/2, ALTO * 0.05f);
+        agua = new Obstaculos(texturaAgua, 135 - texturaCaja.getWidth() / 2, ALTO +200f);
+        //galleta = new Obstaculos(texturaGalleta,(ANCHO - texturaOil.getWidth()) / 2, ALTO);
 
 
     }
@@ -128,6 +141,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         texturaCaja = new Texture("Obstáculos/Apple_box.png");
         texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo_mov.png");
+        texturaAgua = new Texture("Items/water_bottle.png");
+       // texturaGalleta = new Texture("Items/galleta.png");
 
         //Botón pausa
         Texture texturaBtnPausa = new Texture("PantallaJuego/Pausa_Boton.png");
@@ -166,6 +181,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             Gdx.input.setInputProcessor(new GestureDetector(this));
             System.out.println("Sí estoy jalando pero con otro input :D");
         }
+
+        texturaVida = new Texture("PantallaJuego/Heart.png");
+        TextureRegionDrawable trdVida = new TextureRegionDrawable(new TextureRegion(texturaVida));
+        ImageButton corazon = new ImageButton(trdVida,trdVida);
+        corazon.setPosition(450, ALTO-90);
+        escenaPantalla.addActor(corazon);
     }
 
     //Comentario para el push x2
@@ -192,10 +213,10 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         //obstaculos
 
         oil.render(batch);
-
-
         coladera.render(batch);
         caja.render(batch);
+        agua.render(batch);
+
 
         // marcador
         marcador.render(batch);
@@ -245,14 +266,20 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         oil.mover(delta*variableJeje/2);
         caja.mover(delta*variableJeje/2);
         coladera.mover(delta*variableJeje/2);
+        agua.mover(delta*variableJeje/2);
+        //galleta.mover(delta*variableJeje/2);
 
         int randomOil = 1280+oilRan.nextInt(1500);
         int randomCaja = 1280+cajaRan.nextInt(1500);
         int randomColadera = 1280+coladeraRan.nextInt(1500);
+        int randomAgua = 1280+aguaRan.nextInt(3000);
+        //int randomGalleta = 1280+galletaRan.nextInt(3000);
 
         int randomOilPosicion = oilRanPosicion.nextInt(3);
         int randomCajaPosicion = cajaRanPosicion.nextInt(3);
         int ramdomColaderaPosicion = coladeraRanPosicion.nextInt(3);
+        int randomAguaPosicion = aguaRanPosicion.nextInt(3);
+        //int randomGalletaPosicion = galletaRanPosicion.nextInt(3);
 
 
         if (oil.getY() < 0) {
@@ -297,6 +324,20 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             }if(ramdomColaderaPosicion == 1){
 
                 coladera.setX(ANCHO - texturaOil.getWidth() -80);
+            }
+        }
+
+        if (agua.getY() < 0) {
+            agua.setY(randomAgua);
+            if(ramdomColaderaPosicion == 0){
+
+                agua.setX(135 - texturaCaja.getWidth() + 40 );
+            }if(ramdomColaderaPosicion == 2){
+
+                agua.setX(520 - texturaColadera.getWidth() -40 );
+            }if(ramdomColaderaPosicion == 1){
+
+                agua.setX(ANCHO - texturaOil.getWidth() -65);
             }
         }
 
@@ -350,6 +391,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         Rectangle rectCaja = caja.sprite.getBoundingRectangle();
         Rectangle rectColadera = coladera.sprite.getBoundingRectangle();
         Rectangle rectPerro = perro.sprite.getBoundingRectangle();
+        Rectangle rectAgua = agua.sprite.getBoundingRectangle();
 
         if(cantidadVida==3 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro))){
 
@@ -376,6 +418,11 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         else if(cantidadVida == 0) {
             int puntos = marcador.getCont();
             juego.setScreen(new PantallaPerder(juego, puntos));
+
+        }else if(rectAgua.overlaps(rectPerro) && cantidadVida<3){
+            cantidadVida++;
+            vida.marcarVida(cantidadVida);
+            lomito = estadoLomito.estampado;
         }
 
 

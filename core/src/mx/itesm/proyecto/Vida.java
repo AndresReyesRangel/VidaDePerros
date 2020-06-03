@@ -2,6 +2,8 @@ package mx.itesm.proyecto;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import org.omg.PortableInterceptor.ObjectReferenceFactoryHelper;
+
 public class Vida {
 
     private int contVidas;
@@ -22,7 +24,7 @@ public class Vida {
     }
 
     public void render(SpriteBatch batch){
-        String mensaje = "VIDA: "+ contVidas;
+        String mensaje = " = "+ contVidas;
         texto.render(batch, mensaje, x, y);
     }
 

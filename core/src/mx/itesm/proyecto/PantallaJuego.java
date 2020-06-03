@@ -27,6 +27,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private int cont;
     private int tiempo;
     private int variableJeje;
+    private float tiempoLomito;
     private boolean booleano = false;
 
     Random oilRan = new Random();
@@ -51,6 +52,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private Texture texturaPerro;
     private Movimiento movimiento = Movimiento.QUIETO;
     private float pasosPerro = 0;
+    private estadoLomito lomito = estadoLomito.noEstampado;
 
     //Enemigos
     private Texture texturaOil;
@@ -62,6 +64,11 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     //Marcador
     public Marcador marcador;
+
+    //Vida
+    public Vida vida;
+    private Texture texturaVida;
+    private int cantidadVida = 3;
 
 
     //Pausa
@@ -83,6 +90,13 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         crearPerro();
         crearObstaculos();
         crearMarcador();
+        crearVida();
+    }
+
+    private void crearVida() {
+        vida = new Vida(520,1250);
+        vida.marcarVida(cantidadVida);
+
     }
 
 
@@ -166,6 +180,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
         if(estadoJuego==EstadoJuego.JUGANDO) {
                 actualizar(delta);
+
         }
 
         batch.setProjectionMatrix(camara.combined);
@@ -184,11 +199,18 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
         // marcador
         marcador.render(batch);
+        //vida
+        vida.render(batch);
 
         batch.end();
 
         if(cont/60 == (variableJeje) ){
+
             variableJeje+=10;
+        }
+        if(cont/60 == (tiempoLomito)){
+            tiempoLomito +=2;
+            lomito = estadoLomito.noEstampado;
         }
 
         marcador.marcar(cont/60);
@@ -208,9 +230,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         cont++;
         tiempo = cont;
         fondo.actualizarTiempo(tiempo);
-        probarColisiones();
+        if(lomito ==estadoLomito.noEstampado){
+            probarColisiones();
+        }
 
     }
+
 
     private void moverObstaculo(float delta) {
 
@@ -326,10 +351,34 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         Rectangle rectColadera = coladera.sprite.getBoundingRectangle();
         Rectangle rectPerro = perro.sprite.getBoundingRectangle();
 
-        if(rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro)){
+        if(cantidadVida==3 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro))){
+
+            cantidadVida = 2;
+            vida.marcarVida(2);
+            lomito = estadoLomito.estampado;
+
+
+        }
+        else if(cantidadVida==2 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
+                rectColadera.overlaps(rectPerro))){
+
+            vida.marcarVida((1));
+            cantidadVida = 1;
+            lomito = estadoLomito.estampado;
+            }
+        else if(cantidadVida==1 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
+                rectColadera.overlaps(rectPerro))){
+
+            vida.marcarVida((0));
+            cantidadVida = 0;
+            lomito = estadoLomito.estampado;
+        }
+        else if(cantidadVida == 0) {
             int puntos = marcador.getCont();
             juego.setScreen(new PantallaPerder(juego, puntos));
         }
+
+
 
     }
 
@@ -406,6 +455,11 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         DERECHA,
         IZQUIERDA,
         QUIETO
+    }
+
+    public enum estadoLomito{
+        estampado,
+        noEstampado
     }
 
     class EscenaPausa extends Stage {

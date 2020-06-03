@@ -432,6 +432,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     }
 
+    //Comentario palpuch
+
     @Override
     public void pause() {
 

@@ -71,6 +71,10 @@ public class PantallaConfiguracion extends Pantalla {
                 escenaPantalla.addActor(btnVolumenOff);
                 btnVolumen.remove();
 
+                Preferences prefs = Gdx.app.getPreferences("PrefsMusica");
+                prefs.putBoolean("musica", false);
+                prefs.flush();
+
 
             }
         });
@@ -83,12 +87,31 @@ public class PantallaConfiguracion extends Pantalla {
                 juego.reproducirMusica(5);
                 btnVolumenOff.remove();
 
+                Preferences prefs = Gdx.app.getPreferences("PrefsMusica");
+                prefs.putBoolean("musica", true);
+                prefs.flush();
+
             }
         });
 
+        //Congiguración inicial
+        Preferences prefs = Gdx.app.getPreferences("PrefsMusica");
+        boolean musicaActiva = prefs.getBoolean("musica", true);
+        System.out.println("Estado de la música" + musicaActiva);
+
+        if(musicaActiva){
+            escenaPantalla.addActor(btnVolumen);
+            juego.reproducirMusica(5);
+            btnVolumenOff.remove();
+        }else{
+            juego.pausarMusica(5);
+            escenaPantalla.addActor(btnVolumenOff);
+            btnVolumen.remove();
+        }
+
 
         escenaPantalla.addActor(btnRegresar);
-        escenaPantalla.addActor(btnVolumen);
+       // escenaPantalla.addActor(btnVolumen);
 
 
         Gdx.input.setInputProcessor(escenaPantalla);

@@ -458,6 +458,21 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+
+        Vector3 v = new Vector3(x,y,0 );
+        camara.unproject(v);
+
+        if(v.y >= 1100){
+            estadoJuego = EstadoJuego.PAUSADO;
+            if(escenaPausa == null){
+                escenaPausa = new EscenaPausa(vista, batch);
+            }else{
+                escenaPausa = null;
+                estadoJuego = EstadoJuego.JUGANDO;
+            }
+            booleano = true;
+        }
+
         return false;
     }
 

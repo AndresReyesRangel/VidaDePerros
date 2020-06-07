@@ -138,7 +138,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         escenaPantalla = new Stage(vista);
 
         texturaOil = new Texture("Obstáculos/oil.png");
-        texturaCaja = new Texture("Obstáculos/Apple_box.png");
+        texturaCaja = new Texture("Obstáculos/Garbage.png");
         texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo_mov.png");
         texturaAgua = new Texture("Items/water_bottle.png");

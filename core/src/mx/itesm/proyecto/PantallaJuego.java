@@ -28,7 +28,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     private int cont;
     private int tiempo;
-    private int variableJeje;
+    private int variableJeje; //Numero de segundos que pasan cada vez que se acelera la pantalla
     private float tiempoLomito;
     private boolean booleano = false;
 
@@ -225,9 +225,9 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
         batch.end();
 
-        if(cont/60 == (variableJeje) ){
+        if(cont/130 == (variableJeje) ){
 
-            variableJeje+=10;
+            variableJeje+=5;
         }
         if(cont/60 == (tiempoLomito)){
             tiempoLomito +=2;

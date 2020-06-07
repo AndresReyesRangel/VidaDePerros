@@ -25,7 +25,7 @@ public class Perro extends Objeto {
         TextureRegion region = new TextureRegion(textura);
         TextureRegion [][] texturaPerro = region.split(96, 277);
 
-        animacion = new Animation(0.25f, texturaPerro[0][0], texturaPerro[0][1],
+        animacion = new Animation(0.07f, texturaPerro[0][0], texturaPerro[0][1],
                                     texturaPerro[0][2], texturaPerro[0][3],
                                     texturaPerro[0][4], texturaPerro[0][5]);
         animacion.setPlayMode(Animation.PlayMode.LOOP);

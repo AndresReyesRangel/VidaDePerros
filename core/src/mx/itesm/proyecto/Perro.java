@@ -16,12 +16,12 @@ public class Perro extends Objeto {
     protected Animation animacionS;
     protected float timerAnimacion; //frames en tiempos definidos
     protected float timerAnimacionS;
-    private Sprite spriteS;
+
 
     public TextureRegion region;
     public TextureRegion regionS;
 
-    private EstadoMovimientoPerro estado = EstadoMovimientoPerro.CAMINANDO;    // QUIETO, CAMINANDO
+
 
     //Método constructor del sprite del perro
     public Perro(Texture textura, float x, float y) {
@@ -50,15 +50,6 @@ public class Perro extends Objeto {
 
     }
 
-    public void setEstado(EstadoMovimientoPerro estado) {
-
-        this.estado = estado;
-    }
-
-    public PantallaJuego.estadoLomito getEstadoLomito(PantallaJuego.estadoLomito lomito){
-
-        return lomito;
-    }
 
     public void renderP(SpriteBatch batch,float x, float y, PantallaJuego.estadoLomito lomito ) {
 
@@ -128,7 +119,4 @@ public class Perro extends Objeto {
         return sprite.getY();
     }
 
-    public enum EstadoMovimientoPerro {
-        CAMINANDO
-    }
 }

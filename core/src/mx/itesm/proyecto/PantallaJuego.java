@@ -32,7 +32,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private int tiempo;
     private int variableJeje; //Numero de segundos que pasan cada vez que se acelera la pantalla
     private float tiempoLomito;
-    private boolean booleano = false;
+
 
     Random oilRan = new Random();
     Random coladeraRan = new Random();
@@ -93,7 +93,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     //Efectos de sonido
     AssetManager managerEfecto;
     private Music efectoSonidoDaño;
-
+    private AssetManager managerEfectoMuerte;
+    private Music efectoSonidoMuerte;
 
 
     public PantallaJuego(Juego juego) {
@@ -126,11 +127,15 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         efectoSonidoDaño = managerEfecto.get("SoundEffects/daño.mp3");
         efectoSonidoDaño.setVolume(0.2f);
 
+        managerEfectoMuerte = new AssetManager();
+        managerEfectoMuerte.load("SoundEffects/dañoFinal.mp3", Music.class);
+        managerEfectoMuerte.finishLoading();
+        efectoSonidoMuerte= managerEfectoMuerte.get("SoundEffects/dañoFinal.mp3");
+        efectoSonidoMuerte.setVolume(0.2f);
+
+
     }
 
-    public void reproducirEfectoPerro(int n) {
-        efectoSonidoDaño.play();
-    }
 
 
     private void crearObstaculos() {
@@ -191,7 +196,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
                     escenaPausa = null;
                     estadoJuego = EstadoJuego.JUGANDO;
                 }
-                booleano = true;
+
 
             }
         });
@@ -281,12 +286,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         fondo.actualizarTiempo(tiempo);
         if(lomito ==estadoLomito.noEstampado){
             probarColisiones();
+
         }
-        if(lomito == estadoLomito.estampado){
-            reproducirEfectoPerro(5);
+        if(lomito == estadoLomito.estampado) {
+
             perro.setTexturaDogo(texturaPerroD, perro.getX(), perro.getY());
         }
-
 
     }
 
@@ -431,7 +436,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             cantidadVida = 2;
             vida.marcarVida(2);
             lomito = estadoLomito.estampado;
-
+            efectoSonidoDaño.play();
 
         }
         else if(cantidadVida==2 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
@@ -440,6 +445,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             vida.marcarVida((1));
             cantidadVida = 1;
             lomito = estadoLomito.estampado;
+            efectoSonidoDaño.play();
             }
         else if(cantidadVida==1 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
                 rectColadera.overlaps(rectPerro))){
@@ -447,8 +453,11 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             vida.marcarVida((0));
             cantidadVida = 0;
             lomito = estadoLomito.estampado;
+            efectoSonidoDaño.play();
         }
         else if(cantidadVida == 0) {
+            efectoSonidoMuerte.play();
+            System.out.println("F hice la suicidación yo solo");
             int puntos = marcador.getCont();
             juego.setScreen(new PantallaPerder(juego, puntos));
 
@@ -507,7 +516,6 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
                 escenaPausa = null;
                 estadoJuego = EstadoJuego.JUGANDO;
             }
-            booleano = true;
         }
 
         return false;

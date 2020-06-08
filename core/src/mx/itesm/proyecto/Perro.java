@@ -13,9 +13,13 @@ public class Perro extends Objeto {
 
     //Animacion
     protected Animation animacion;
+    protected Animation animacionS;
     protected float timerAnimacion; //frames en tiempos definidos
+    protected float timerAnimacionS;
+    private Sprite spriteS;
 
     public TextureRegion region;
+    public TextureRegion regionS;
 
     private EstadoMovimientoPerro estado = EstadoMovimientoPerro.CAMINANDO;    // QUIETO, CAMINANDO
 
@@ -25,10 +29,17 @@ public class Perro extends Objeto {
         TextureRegion region = new TextureRegion(textura);
         TextureRegion [][] texturaPerro = region.split(96, 277);
 
+
+
         animacion = new Animation(0.07f, texturaPerro[0][0], texturaPerro[0][1],
                                     texturaPerro[0][2], texturaPerro[0][3],
                                     texturaPerro[0][4], texturaPerro[0][5]);
+
+
+
+
         animacion.setPlayMode(Animation.PlayMode.LOOP);
+
         timerAnimacion = 0;
 
 
@@ -40,14 +51,32 @@ public class Perro extends Objeto {
     }
 
     public void setEstado(EstadoMovimientoPerro estado) {
+
         this.estado = estado;
     }
 
-    public void renderP(SpriteBatch batch,float x, float y) {
+    public PantallaJuego.estadoLomito getEstadoLomito(PantallaJuego.estadoLomito lomito){
 
-        timerAnimacion += Gdx.graphics.getDeltaTime();
-        region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
-        batch.draw(region, sprite.getX(), sprite.getY());
+        return lomito;
+    }
+
+    public void renderP(SpriteBatch batch,float x, float y, PantallaJuego.estadoLomito lomito ) {
+
+
+
+        if(lomito == PantallaJuego.estadoLomito.estampado){
+            timerAnimacionS += Gdx.graphics.getDeltaTime();
+            regionS = (TextureRegion) animacionS.getKeyFrame(timerAnimacionS);
+            batch.draw(regionS, sprite.getX(), sprite.getY());
+
+        }else{
+            timerAnimacion += Gdx.graphics.getDeltaTime();
+            region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
+            batch.draw(region, sprite.getX(), sprite.getY());
+        }
+
+
+
 
     }
 
@@ -69,6 +98,30 @@ public class Perro extends Objeto {
 
     public void setY(float dy){
         sprite.setY(dy);
+    }
+
+    public void setTexturaDogo(Texture texture, float x, float y){
+
+        super.textura = texture;
+        regionS = new TextureRegion(texture);
+        TextureRegion [][] texturaPerroS = regionS.split(96,277);
+
+        animacionS = new Animation(0.07f, texturaPerroS[0][0],
+                texturaPerroS[0][1],
+                texturaPerroS[0][2], texturaPerroS[0][3],
+                texturaPerroS[0][4], texturaPerroS[0][5], texturaPerroS[0][6],
+                texturaPerroS[0][7],
+                texturaPerroS[0][8],texturaPerroS[0][9],
+                texturaPerroS[0][10],texturaPerroS[0][11], texturaPerroS[0][12], texturaPerroS[0][13],texturaPerroS[0][14],
+                texturaPerroS[0][15],texturaPerroS[0][16]);
+
+        animacionS.setPlayMode(Animation.PlayMode.LOOP);
+        timerAnimacionS = 0;
+
+        super.sprite = new Sprite(texturaPerroS[0][0]);
+        super.sprite.setPosition(x,y);
+
+
     }
 
     public float getY(){

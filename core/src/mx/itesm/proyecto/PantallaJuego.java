@@ -3,6 +3,8 @@ package mx.itesm.proyecto;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -56,9 +58,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     //Perro
     private Perro perro;
     private Texture texturaPerro;
+    private Texture texturaPerroS;
+    private Texture texturaPerroD;
     private Movimiento movimiento = Movimiento.QUIETO;
     private float pasosPerro = 0;
-    private estadoLomito lomito = estadoLomito.noEstampado;
+    public estadoLomito lomito = estadoLomito.noEstampado;
+
 
     //Enemigos
     private Texture texturaOil;
@@ -85,6 +90,10 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private EscenaPausa escenaPausa;
     private EstadoJuego estadoJuego = EstadoJuego.JUGANDO; // JUGANDO, PAUSA, GANÓ, PERDIO
 
+    //Efectos de sonido
+    AssetManager managerEfecto;
+    private Music efectoSonidoDaño;
+
 
 
     public PantallaJuego(Juego juego) {
@@ -110,6 +119,19 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     }
 
+    private void reproducirEfecto() {
+        managerEfecto = new AssetManager();
+        managerEfecto.load("SoundEffects/daño.mp3", Music.class);
+        managerEfecto.finishLoading();
+        efectoSonidoDaño = managerEfecto.get("SoundEffects/daño.mp3");
+        efectoSonidoDaño.setVolume(0.2f);
+
+    }
+
+    public void reproducirEfectoPerro(int n) {
+        efectoSonidoDaño.play();
+    }
+
 
     private void crearObstaculos() {
 
@@ -130,6 +152,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private void crearPerro() {
         perro = new Perro(texturaPerro, ANCHO, ALTO * 0.05f);
         perro.setX((ANCHO-perro.sprite.getWidth())/2);
+
     }
 
 
@@ -142,6 +165,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         texturaColadera = new Texture("Obstáculos/Coladera.png");
         texturaPerro = new Texture("Perro/perro_nuevo_mov.png");
         texturaAgua = new Texture("Items/water_bottle.png");
+        texturaPerroS = new Texture("Perro/perroSalto.png");
+        texturaPerroD = new Texture("Perro/perroDaño.png");
        // texturaGalleta = new Texture("Items/galleta.png");
 
         //Botón pausa
@@ -208,7 +233,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         batch.begin();
         fondo.render(batch);
 
-        perro.renderP(batch, perro.sprite.getX(),perro.sprite.getY());
+        perro.renderP(batch, perro.sprite.getX(),perro.sprite.getY(), lomito);
 
         //obstaculos
 
@@ -246,15 +271,22 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
 
     private void actualizar(float delta) {
+        reproducirEfecto();
         moverPerro();
         moverFondo(delta);
         moverObstaculo(delta);
+
         cont++;
         tiempo = cont;
         fondo.actualizarTiempo(tiempo);
         if(lomito ==estadoLomito.noEstampado){
             probarColisiones();
         }
+        if(lomito == estadoLomito.estampado){
+            reproducirEfectoPerro(5);
+            perro.setTexturaDogo(texturaPerroD, perro.getX(), perro.getY());
+        }
+
 
     }
 
@@ -273,7 +305,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         int randomOil = 1280+oilRan.nextInt(1500);
         int randomCaja = 1280+cajaRan.nextInt(1500);
         int randomColadera = 1280+coladeraRan.nextInt(1500);
-        int randomAgua = 1280+aguaRan.nextInt(3000);
+        int randomAgua = 3000+aguaRan.nextInt(6000);
         //int randomGalleta = 1280+galletaRan.nextInt(3000);
 
         int randomOilPosicion = oilRanPosicion.nextInt(3);
@@ -424,8 +456,13 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
             cantidadVida++;
             vida.marcarVida(cantidadVida);
+            agua.sprite.setColor(1,1,1,0);
 
             lomito = estadoLomito.estampado;
+        }
+
+        if(agua.getY() > 1280){
+            agua.sprite.setColor(1,1,1,1);
         }
 
 

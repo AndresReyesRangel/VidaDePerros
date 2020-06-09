@@ -88,6 +88,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private EstadoJuego estadoJuego = EstadoJuego.JUGANDO; // JUGANDO, PAUSA, GANÓ, PERDIO
     private AssetManager managerEfecto;
     private Music efectoSonidoDaño;
+    private AssetManager managerEfectoMuerte;
+    private Music efectoSonidoMuerte;
 
 
     public PantallaJuego(Juego juego) {
@@ -201,6 +203,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         managerEfecto.finishLoading();
         efectoSonidoDaño = managerEfecto.get("SoundEffects/daño.mp3");
         efectoSonidoDaño.setVolume(0.2f);
+
+        managerEfectoMuerte = new AssetManager();
+        managerEfectoMuerte.load("SoundEffects/dañoFinal.mp3", Music.class);
+        managerEfectoMuerte.finishLoading();
+        efectoSonidoMuerte = managerEfectoMuerte.get("SoundEffects/dañoFinal.mp3");
+        efectoSonidoMuerte.setVolume(0.2f);
 
     }
 
@@ -428,7 +436,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             lomito = estadoLomito.estampado;
         }
         else if(cantidadVida == 0) {
-            efectoSonidoDaño.play();
+            efectoSonidoMuerte.play();
             int puntos = marcador.getCont();
             juego.setScreen(new PantallaPerder(juego, puntos));
 

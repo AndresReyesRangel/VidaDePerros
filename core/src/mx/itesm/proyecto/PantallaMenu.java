@@ -46,7 +46,7 @@ class PantallaMenu extends Pantalla {
     private void crearMenu() {
         escenaMenu = new Stage(vista);
 
-        //Botones cargando imagenes
+        //Botones cargando imagenes.
         Texture texturaBtnJugar = new Texture("Menu/btnJugar.png");
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(texturaBtnJugar));
         //Imagen btn presionado

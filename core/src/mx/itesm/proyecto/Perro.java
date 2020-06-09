@@ -17,7 +17,7 @@ public class Perro extends Objeto {
 
     public TextureRegion region;
 
-    private EstadoMovimientoPerro estado = EstadoMovimientoPerro.CAMINANDO;    // QUIETO, CAMINANDO
+
 
     //Método constructor del sprite del perro
     public Perro(Texture textura, float x, float y) {
@@ -39,9 +39,7 @@ public class Perro extends Objeto {
 
     }
 
-    public void setEstado(EstadoMovimientoPerro estado) {
-        this.estado = estado;
-    }
+
 
     public void renderP(SpriteBatch batch,float x, float y) {
 
@@ -51,11 +49,7 @@ public class Perro extends Objeto {
 
     }
 
-    //Método para mover el perro una cantidad determinada de pasos
-    public void mover(float dx){
 
-        sprite.setX(sprite.getX()+dx);
-    }
 
     //Método para determinar la posición del sprite del perro dentro del eje de las X
     public void setX(float dx){
@@ -75,7 +69,4 @@ public class Perro extends Objeto {
         return sprite.getY();
     }
 
-    public enum EstadoMovimientoPerro {
-        CAMINANDO
-    }
 }

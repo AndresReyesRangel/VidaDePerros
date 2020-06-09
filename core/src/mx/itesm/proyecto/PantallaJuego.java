@@ -3,6 +3,8 @@ package mx.itesm.proyecto;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -84,11 +86,13 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     //Pausa
     private EscenaPausa escenaPausa;
     private EstadoJuego estadoJuego = EstadoJuego.JUGANDO; // JUGANDO, PAUSA, GANÓ, PERDIO
-
+    private AssetManager managerEfecto;
+    private Music efectoSonidoDaño;
 
 
     public PantallaJuego(Juego juego) {
         this.juego = juego;
+        reproducirEfecto();
     }
 
 
@@ -191,6 +195,14 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     //Comentario para el push x2
 
+    private void reproducirEfecto() {
+        managerEfecto = new AssetManager();
+        managerEfecto.load("SoundEffects/daño.mp3", Music.class);
+        managerEfecto.finishLoading();
+        efectoSonidoDaño = managerEfecto.get("SoundEffects/daño.mp3");
+        efectoSonidoDaño.setVolume(0.2f);
+
+    }
 
 
     @Override
@@ -395,28 +407,28 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         Rectangle rectAgua = agua.sprite.getBoundingRectangle();
 
         if(cantidadVida==3 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) || rectColadera.overlaps(rectPerro))){
-
+            efectoSonidoDaño.play();
             cantidadVida = 2;
             vida.marcarVida(2);
             lomito = estadoLomito.estampado;
 
-
         }
         else if(cantidadVida==2 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
                 rectColadera.overlaps(rectPerro))){
-
+            efectoSonidoDaño.play();
             vida.marcarVida((1));
             cantidadVida = 1;
             lomito = estadoLomito.estampado;
             }
         else if(cantidadVida==1 && (rectCaja.overlaps(rectPerro) || rectOil.overlaps(rectPerro) ||
                 rectColadera.overlaps(rectPerro))){
-
+            efectoSonidoDaño.play();
             vida.marcarVida((0));
             cantidadVida = 0;
             lomito = estadoLomito.estampado;
         }
         else if(cantidadVida == 0) {
+            efectoSonidoDaño.play();
             int puntos = marcador.getCont();
             juego.setScreen(new PantallaPerder(juego, puntos));
 
@@ -426,9 +438,12 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             vida.marcarVida(cantidadVida);
 
             lomito = estadoLomito.estampado;
+            agua.sprite.setColor(1,1,1,0);
         }
 
-
+        if(agua.getY()>1280){
+            agua.sprite.setColor(1,1,1,1);
+        }
 
     }
 

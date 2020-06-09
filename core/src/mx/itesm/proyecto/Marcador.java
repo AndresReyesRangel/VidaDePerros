@@ -27,7 +27,7 @@ class Marcador {
 
 
     public void render(SpriteBatch batch){
-        String mensaje = "Puntos: "+ cont;
+        String mensaje = "  Puntos: "+ cont;
         texto.render(batch, mensaje, x, y);
     }
 

@@ -90,6 +90,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
     private Music efectoSonidoDaño;
     private AssetManager managerEfectoMuerte;
     private Music efectoSonidoMuerte;
+    private AssetManager managerEfectoPickUp;
+    private Music efectoSonidoPickUp;
 
 
     public PantallaJuego(Juego juego) {
@@ -210,6 +212,14 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         efectoSonidoMuerte = managerEfectoMuerte.get("SoundEffects/dañoFinal.mp3");
         efectoSonidoMuerte.setVolume(0.2f);
 
+        managerEfectoPickUp = new AssetManager();
+        managerEfectoPickUp.load("SoundEffects/Pickup.mp3", Music.class);
+        managerEfectoPickUp.finishLoading();
+        efectoSonidoPickUp = managerEfectoPickUp.get("SoundEffects/Pickup.mp3");
+        efectoSonidoPickUp.setVolume(0.5f);
+
+
+
     }
 
 
@@ -293,7 +303,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         int randomOil = 1280+oilRan.nextInt(1500);
         int randomCaja = 1280+cajaRan.nextInt(1500);
         int randomColadera = 1280+coladeraRan.nextInt(1500);
-        int randomAgua = 1280+aguaRan.nextInt(3000);
+        int randomAgua = 3000+aguaRan.nextInt(6000);
         //int randomGalleta = 1280+galletaRan.nextInt(3000);
 
         int randomOilPosicion = oilRanPosicion.nextInt(3);
@@ -395,7 +405,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
             //Para pasar del carril de en medio al de la izquierda
         }else if(movimiento == Movimiento.IZQUIERDA && (240<perro.sprite.getX() && perro.sprite.getX()<480)){
 
-            perro.sprite.setX(135);
+            perro.sprite.setX(100);
 
             //Para pasar del carril de la derecha al de en medio
         }else if(movimiento == Movimiento.IZQUIERDA && (480<perro.sprite.getX() && perro.sprite.getX()<720)){
@@ -444,7 +454,7 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
             cantidadVida++;
             vida.marcarVida(cantidadVida);
-
+            efectoSonidoPickUp.play();
             lomito = estadoLomito.estampado;
             agua.sprite.setColor(1,1,1,0);
         }

@@ -387,6 +387,8 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
 
     }
 
+    //Comientario palapuchada
+
     // Revisar el movimiento.
     private void moverPerro() {
 

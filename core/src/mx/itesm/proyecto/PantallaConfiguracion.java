@@ -2,6 +2,8 @@ package mx.itesm.proyecto;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,6 +21,8 @@ public class PantallaConfiguracion extends Pantalla {
 
     private Preferences prefs;
     boolean A=true;
+    private AssetManager managerEfecto;
+    private Music efecto;
 
     public PantallaConfiguracion(Juego juego){
         this.juego = juego;
@@ -27,6 +31,15 @@ public class PantallaConfiguracion extends Pantalla {
     public void show() {
         texturaFondo = new Texture("PantallaConfiguracion/Pantalla_Config.png");
         crearPantalla();
+    }
+
+    private void reproducirEfecto(){
+        managerEfecto = new AssetManager();
+        managerEfecto.load("SoundEffects/buton.mp3", Music.class);
+        managerEfecto.finishLoading();
+        efecto = managerEfecto.get("SoundEffects/buton.mp3");
+        efecto.setVolume(0.2f);
+        efecto.play();
     }
 
     private void crearPantalla() {
@@ -115,7 +128,18 @@ public class PantallaConfiguracion extends Pantalla {
 
 
         Gdx.input.setInputProcessor(escenaPantalla);
+
+        btnRegresar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                reproducirEfecto();
+                juego.setScreen(new PantallaMenu(juego));
+
+            }
+        });
     }
+
 
 
 

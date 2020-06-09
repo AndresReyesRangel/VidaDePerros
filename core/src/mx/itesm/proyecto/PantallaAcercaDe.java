@@ -67,6 +67,7 @@ class PantallaAcercaDe extends Pantalla {
         escenaPantalla.addActor(btnRegresar);
 
         Gdx.input.setInputProcessor(escenaPantalla);
+
         btnRegresar.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

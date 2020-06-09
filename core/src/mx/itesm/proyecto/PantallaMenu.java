@@ -20,6 +20,8 @@ class PantallaMenu extends Pantalla {
 
     //MENU
     private Stage escenaMenu;
+    private AssetManager managerEfecto;
+    private Music efecto;
 
     public PantallaMenu(Juego juego) {
 
@@ -30,6 +32,15 @@ class PantallaMenu extends Pantalla {
     public void show() {
         texturaFondo = new Texture("Menu/fondoMenu.png");
         crearMenu();
+    }
+
+    private void reproducirEfecto(){
+        managerEfecto = new AssetManager();
+        managerEfecto.load("SoundEffects/buton.mp3", Music.class);
+        managerEfecto.finishLoading();
+        efecto = managerEfecto.get("SoundEffects/buton.mp3");
+        efecto.setVolume(0.2f);
+        efecto.play();
     }
 
     private void crearMenu() {
@@ -74,7 +85,9 @@ class PantallaMenu extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                reproducirEfecto();
                 juego.setScreen(new PantallaJuego(juego));
+
             }
         });
 
@@ -82,6 +95,7 @@ class PantallaMenu extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                reproducirEfecto();
                 juego.setScreen(new PantallaAcercaDe(juego));
             }
         });
@@ -90,6 +104,7 @@ class PantallaMenu extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                reproducirEfecto();
                 juego.setScreen(new PantallaInstrucciones(juego));
             }
         });
@@ -98,7 +113,7 @@ class PantallaMenu extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
+                reproducirEfecto();
                 juego.setScreen(new PantallaConfiguracion(juego));
             }
         });

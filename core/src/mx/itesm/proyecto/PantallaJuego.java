@@ -564,5 +564,5 @@ class PantallaJuego extends Pantalla implements GestureDetector.GestureListener 
         PERDIO
     }
 
-    //Arriba el boquita PAPÁ!!!!
+    //Arriba el boquita PAPÁ!!!!!!!!!!
 }
